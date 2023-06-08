@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -47,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 63
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -63,6 +64,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
@@ -358,20 +360,19 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Desert Verticle_8: -1344441817
-      Desert Verticle_6: -1630114440
       Desert Verticle_0: -1995390891
-      Desert Verticle_5: -437883349
-      Desert Verticle_9: -1952423358
-      Desert Verticle_3: 1114387425
-      Desert Verticle_4: -1658665485
-      Desert Verticle_7: 2061915558
+      Desert Verticle_1: -1749106824
       Desert Verticle_10: 1121669771
       Desert Verticle_2: 251316324
-      Desert Verticle_1: -1749106824
-  spritePackingTag: 
+      Desert Verticle_3: 1114387425
+      Desert Verticle_4: -1658665485
+      Desert Verticle_5: -437883349
+      Desert Verticle_6: -1630114440
+      Desert Verticle_7: 2061915558
+      Desert Verticle_8: -1344441817
+      Desert Verticle_9: -1952423358
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

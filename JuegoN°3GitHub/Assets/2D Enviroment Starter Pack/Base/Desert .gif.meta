@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -47,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 63
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -63,6 +64,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
@@ -338,18 +340,17 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       Desert _0: -2003031978
-      Desert _3: -139785215
       Desert _1: -349494513
-      Desert _5: 2073895850
-      Desert _8: -355227566
-      Desert _7: -1761230572
-      Desert _4: -1309864340
       Desert _2: -1340224879
+      Desert _3: -139785215
+      Desert _4: -1309864340
+      Desert _5: 2073895850
       Desert _6: 1422904944
+      Desert _7: -1761230572
+      Desert _8: -355227566
       Desert _9: 117836863
-  spritePackingTag: 
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
