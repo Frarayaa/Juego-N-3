@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum GameMode
 {
@@ -17,18 +18,28 @@ public class Character : MonoBehaviour
     public float attackCooldown = 1f;
     public float jumpForce = 5f;
     public float arrowSpeed = 10f;
+    public int cantidadFlechas = 0;
+    public int maxCantidadFlechas = 10;
     public GameObject picotaPrefab;
     public GameObject hachaPrefab;
     public bool isInWoodArea = false;
     public bool isInStoneArea = false;
     private bool hasPicota = false;
     private bool hasHacha = false;
+    private int cantidadMadera = 0;
+    private int cantidadPiedra = 0;
+    public int maxMadera = 10;
+    public int maxPiedra = 10;
     private bool isGrounded = false;
     private Vector3 respawnPosition;
     private SpriteRenderer spriteRenderer;
     private Collider2D characterCollider;
     private Rigidbody2D rb;
     private float attackTimer = 0f;
+    public Text arrowText;
+    public Text woodText;
+    public Text stoneText;
+    public LifeIndicator lifeIndicator;
 
     // Variables para el arco
     private bool hasBow = false;
@@ -46,6 +57,7 @@ public class Character : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         health = maxHealth;
         respawnPosition = transform.position;
+        
     }
 
     private void Update()
@@ -58,16 +70,17 @@ public class Character : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Tab) && hasHacha && isInWoodArea)
         {
-            Debug.Log("Uso hacha.");
-            // Lógica de recolección de materiales con el hacha en el área de madera
-            // ...
+            RecolectarMadera();
         }
 
         if (Input.GetKeyDown(KeyCode.Tab) && hasPicota && isInStoneArea)
         {
-            Debug.Log("Uso picota.");
-            // Lógica de recolección de materiales con la picota en el área de piedra
-            // ...
+            RecolectarPiedra();
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            CrearFlecha();
         }
 
         // Set visibility and collision based on the current mode
@@ -106,13 +119,24 @@ public class Character : MonoBehaviour
                 {
                     if (hasBow)
                     {
-                        IniciarCargaDisparo();
+                        if (cantidadFlechas > 0)
+                        {
+                            cantidadFlechas--;
+                            UpdateArrowIndicator();
+                            AimAndShoot();
+                            attackTimer = attackCooldown;
+                            Debug.Log("Has disparado una flecha. Flechas restantes: " + cantidadFlechas);
+                        }
+                        else
+                        {
+                            Debug.Log("No tienes más flechas. Debes crear más.");
+                        }
                     }
                     else
                     {
                         Attack();
+                        attackTimer = attackCooldown;
                     }
-                    attackTimer = attackCooldown;
                 }
             }
 
@@ -165,6 +189,67 @@ public class Character : MonoBehaviour
         {
             isInStoneArea = false;
         }
+    }
+
+    private void RecolectarMadera()
+    {
+        if (cantidadMadera < maxMadera)
+        {
+            cantidadMadera++;
+            UpdateWoodIndicator();
+            Debug.Log("Has recolectado 1 unidad de madera. Total de madera: " + cantidadMadera);
+        }
+    }
+
+    private void RecolectarPiedra()
+    {
+        if (cantidadPiedra < maxPiedra)
+        {
+            cantidadPiedra++;
+            UpdateStoneIndicator();
+            Debug.Log("Has recolectado 1 unidad de piedra. Total de piedra: " + cantidadPiedra);
+        }
+    }
+
+    private void CrearFlecha()
+    {
+        if (cantidadMadera >= 1 && cantidadPiedra >= 1 && cantidadFlechas < maxCantidadFlechas)
+        {
+            cantidadMadera -= 1;
+            cantidadPiedra -= 1;
+            cantidadFlechas += 1;
+            UpdateArrowIndicator();
+            UpdateStoneIndicator();
+            UpdateWoodIndicator();
+
+            // Código para crear una flecha
+            // ...
+
+            Debug.Log("Has creado una flecha. Total de flechas: " + cantidadFlechas);
+        }
+        else if (cantidadFlechas >= maxCantidadFlechas)
+        {
+            Debug.Log("No puedes crear más flechas. Has alcanzado el límite máximo.");
+        }
+        else
+        {
+            Debug.Log("No tienes suficientes materiales para crear una flecha.");
+        }
+    }
+
+    private void UpdateArrowIndicator()
+    {
+        arrowText.text = "Flechas: " + cantidadFlechas;
+    }
+
+    private void UpdateWoodIndicator()
+    {
+        woodText.text = "Madera: " + cantidadMadera;
+    }
+
+    private void UpdateStoneIndicator()
+    {
+        stoneText.text = "Piedra: " + cantidadPiedra;
     }
 
     private void Attack()
@@ -235,6 +320,7 @@ public class Character : MonoBehaviour
     {
         Debug.Log("Taking damage: " + damage);
         health -= damage;
+        lifeIndicator.TakeDamage(damageAmount);
 
         if (health <= 0)
         {
