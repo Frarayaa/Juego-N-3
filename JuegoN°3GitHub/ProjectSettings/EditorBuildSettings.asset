@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Isla1.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Sidescroll prueba.unity
+    guid: f2360fb2d55b62c44a9855349e515907
   m_configObjects: {}

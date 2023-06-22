@@ -20,6 +20,8 @@ public class Character : MonoBehaviour
     public float arrowSpeed = 10f;
     public int cantidadFlechas = 0;
     public int maxCantidadFlechas = 10;
+    private bool hasSword = false;
+    public GameObject swordPrefab;
     public GameObject picotaPrefab;
     public GameObject hachaPrefab;
     public bool isInWoodArea = false;
@@ -146,7 +148,12 @@ public class Character : MonoBehaviour
                 // Perform left click attack if the attack cooldown is over
                 if (attackTimer <= 0f)
                 {
-                    LeftClickAttack();
+                    // Check if the character has a sword
+                    if (hasSword)
+                    {
+                        SwordAttack();
+                    }
+
                     attackTimer = attackCooldown;
                 }
             }
@@ -363,12 +370,13 @@ public class Character : MonoBehaviour
         hachaPrefab = hacha;
     }
 
-    private void LeftClickAttack()
+    private void SwordAttack()
     {
-        // Perform left click attack logic here
-        // This can be a sweeping attack or any other action you want
+        // Perform sword attack logic here
+        // This can be a melee attack animation or any other action you want
         // For example, let's perform a simple debug log message
-        Debug.Log("Performing left click attack!");
+        Debug.Log("Performing sword attack!");
+
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 1.5f);
         foreach (Collider2D collider in hitColliders)
         {
@@ -392,6 +400,12 @@ public class Character : MonoBehaviour
                 zorrillo.TakeDamage(damageAmount);
             }
         }
+    }
+
+    public void GetSword(GameObject sword)
+    {
+        hasSword = true;
+        swordPrefab = sword;
     }
 
     private void IniciarCargaDisparo()
