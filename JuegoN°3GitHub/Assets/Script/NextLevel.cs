@@ -4,6 +4,7 @@ using System.Collections;
 
 public class NextLevel : MonoBehaviour
 {
+    public GameManager gm;
     public string nextLevelName; // Nombre de la escena del próximo nivel
     public Animator transitionAnimator; // Referencia al componente Animator para reproducir la animación de transición
 
@@ -30,6 +31,7 @@ public class NextLevel : MonoBehaviour
         // Esperar un tiempo suficiente para que la animación se reproduzca
         yield return new WaitForSeconds(0.7f); // Ajusta el tiempo de espera según la duración de tu animación
         Debug.Log("Wait end");
+        gm?.SavePlayerProgress();
         // Cargar la siguiente escena
         SceneManager.LoadScene(nextLevelName);
     }

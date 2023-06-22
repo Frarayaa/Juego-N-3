@@ -3,13 +3,22 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public Character charc;
     public CanvasGroup pauseMenuCanvasGroup;
     public bool isPaused = false;
     private string previousSceneName;
+    public PlayerProgress pp;
+
 
     private void Start()
     {
-        pauseMenuCanvasGroup.alpha = 0;
+        if (pauseMenuCanvasGroup) { 
+            pauseMenuCanvasGroup.alpha = 0;
+        }
+
+        // Cargar el progreso del jugador al iniciar el GameManager
+        pp.LoadProgress();
+        charc.Load(pp);
     }
 
     private void Update()
@@ -32,7 +41,7 @@ public class GameManager : MonoBehaviour
     public void ShowDeathScreen()
     {
         // Almacenar el nombre de la escena anterior
-        SceneManagerHelper.previousSceneName = SceneManager.GetActiveScene().name;
+        previousSceneName = SceneManager.GetActiveScene().name;
 
         // Cargar la escena de la pantalla de muerte
         SceneManager.LoadScene("DeathScreen");
@@ -41,17 +50,22 @@ public class GameManager : MonoBehaviour
     public void Retry()
     {
         // Cargar la escena anterior por su nombre almacenado
-        SceneManager.LoadScene(SceneManagerHelper.previousSceneName);
+        pp.LoadProgress();
+        SceneManager.LoadScene(previousSceneName);
     }
 
     public void BackToMenu()
     {
+        // Guardar el progreso del jugador
+        pp.SaveProgress();
+
         // Cargar la escena del menú principal por su nombre
-        SceneManager.LoadScene("Menú");
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void LoadLevel(string levelName)
     {
+        pp.LoadProgress();
         SceneManager.LoadScene(levelName);
     }
 
@@ -78,5 +92,25 @@ public class GameManager : MonoBehaviour
             pauseMenuCanvasGroup.alpha = 1;
             pauseMenuCanvasGroup.blocksRaycasts = true;
         }
+    }
+
+    public void SavePlayerProgress()
+    {
+        pp.SaveProgress();
+
+        // Convertir el objeto PlayerProgress a JSON
+        // string json = JsonUtility.ToJson(playerProgress);
+
+        // Guardar el JSON en algún lugar, como PlayerPrefs o un archivo
+        // PlayerPrefs.SetString("PlayerProgress", json);
+    }
+
+    private void LoadPlayerProgress()
+    {
+        pp.LoadProgress();
+        // Obtener el JSON del progreso del jugador
+        // string json = PlayerPrefs.GetString("PlayerProgress", "");
+
+        
     }
 }

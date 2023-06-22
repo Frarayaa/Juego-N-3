@@ -20,16 +20,16 @@ public class Character : MonoBehaviour
     public float arrowSpeed = 10f;
     public int cantidadFlechas = 0;
     public int maxCantidadFlechas = 10;
-    private bool hasSword = false;
+    public bool hasSword = false;
     public GameObject swordPrefab;
     public GameObject picotaPrefab;
     public GameObject hachaPrefab;
     public bool isInWoodArea = false;
     public bool isInStoneArea = false;
-    private bool hasPicota = false;
-    private bool hasHacha = false;
-    private int cantidadMadera = 0;
-    private int cantidadPiedra = 0;
+    public bool hasPicota = false;
+    public bool hasHacha = false;
+    public int cantidadMadera = 0;
+    public int cantidadPiedra = 0;
     public int maxMadera = 10;
     public int maxPiedra = 10;
     private bool isGrounded = false;
@@ -42,9 +42,10 @@ public class Character : MonoBehaviour
     public Text woodText;
     public Text stoneText;
     public LifeIndicator lifeIndicator;
+    public PlayerProgress playerProgress;
 
     // Variables para el arco
-    private bool hasBow = false;
+    public bool hasBow = false;
     public GameObject arrowPrefab; // Corregido: ahora se declara públicamente
 
     // Variables para la carga de disparo
@@ -59,7 +60,7 @@ public class Character : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         health = maxHealth;
         respawnPosition = transform.position;
-        
+        playerProgress.UpdateFromCharacter(this);
     }
 
     private void Update()
@@ -198,33 +199,36 @@ public class Character : MonoBehaviour
         }
     }
 
-    private void RecolectarMadera()
+    public void RecolectarMadera()
     {
         if (cantidadMadera < maxMadera)
         {
             cantidadMadera++;
+            playerProgress.UpdateFromCharacter(this);
             UpdateWoodIndicator();
             Debug.Log("Has recolectado 1 unidad de madera. Total de madera: " + cantidadMadera);
         }
     }
 
-    private void RecolectarPiedra()
+    public void RecolectarPiedra()
     {
         if (cantidadPiedra < maxPiedra)
         {
             cantidadPiedra++;
+            playerProgress.UpdateFromCharacter(this);
             UpdateStoneIndicator();
             Debug.Log("Has recolectado 1 unidad de piedra. Total de piedra: " + cantidadPiedra);
         }
     }
 
-    private void CrearFlecha()
+    public void CrearFlecha()
     {
         if (cantidadMadera >= 1 && cantidadPiedra >= 1 && cantidadFlechas < maxCantidadFlechas)
         {
             cantidadMadera -= 1;
             cantidadPiedra -= 1;
             cantidadFlechas += 1;
+            playerProgress.UpdateFromCharacter(this);
             UpdateArrowIndicator();
             UpdateStoneIndicator();
             UpdateWoodIndicator();
@@ -332,6 +336,7 @@ public class Character : MonoBehaviour
         if (health <= 0)
         {
             health = maxHealth;
+            playerProgress.UpdateFromCharacter(this);
             Respawn();
         }
     }
@@ -339,6 +344,7 @@ public class Character : MonoBehaviour
     private void Respawn()
     {
         transform.position = respawnPosition;
+        playerProgress.UpdateFromCharacter(this);
         health = maxHealth;
     }
 
@@ -355,18 +361,21 @@ public class Character : MonoBehaviour
     public void GetBow(GameObject bowPrefab)
     {
         hasBow = true;
+        playerProgress.UpdateFromCharacter(this);
         arrowPrefab = bowPrefab;
     }
 
     public void GetPicota(GameObject picota)
     {
         hasPicota = true;
+        playerProgress.UpdateFromCharacter(this);
         picotaPrefab = picota;
     }
 
     public void GetHacha(GameObject hacha)
     {
         hasHacha = true;
+        playerProgress.UpdateFromCharacter(this);
         hachaPrefab = hacha;
     }
 
@@ -405,6 +414,7 @@ public class Character : MonoBehaviour
     public void GetSword(GameObject sword)
     {
         hasSword = true;
+        playerProgress.UpdateFromCharacter(this);
         swordPrefab = sword;
     }
 
@@ -421,5 +431,10 @@ public class Character : MonoBehaviour
         AimAndShoot();
         estaCargando = false;
         tiempoPasadoCarga = 0f;
+    }
+
+    public void Load(PlayerProgress pp)
+    {
+
     }
 }
