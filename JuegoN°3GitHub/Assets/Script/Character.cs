@@ -60,7 +60,7 @@ public class Character : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         health = maxHealth;
         respawnPosition = transform.position;
-        playerProgress.LoadProgress();
+        playerProgress.UpdateFromCharacter(this);
     }
 
     private void Update()
@@ -204,8 +204,7 @@ public class Character : MonoBehaviour
         if (cantidadMadera < maxMadera)
         {
             cantidadMadera++;
-            playerProgress.cantidadMadera = cantidadMadera;
-            playerProgress.SaveProgress();
+            playerProgress.UpdateFromCharacter(this);
             UpdateWoodIndicator();
             Debug.Log("Has recolectado 1 unidad de madera. Total de madera: " + cantidadMadera);
         }
@@ -216,8 +215,7 @@ public class Character : MonoBehaviour
         if (cantidadPiedra < maxPiedra)
         {
             cantidadPiedra++;
-            playerProgress.cantidadPiedra = cantidadPiedra;
-            playerProgress.SaveProgress();
+            playerProgress.UpdateFromCharacter(this);
             UpdateStoneIndicator();
             Debug.Log("Has recolectado 1 unidad de piedra. Total de piedra: " + cantidadPiedra);
         }
@@ -230,10 +228,7 @@ public class Character : MonoBehaviour
             cantidadMadera -= 1;
             cantidadPiedra -= 1;
             cantidadFlechas += 1;
-            playerProgress.cantidadMadera = cantidadMadera;
-            playerProgress.cantidadPiedra = cantidadPiedra;
-            playerProgress.cantidadFlechas = cantidadFlechas;
-            playerProgress.SaveProgress();
+            playerProgress.UpdateFromCharacter(this);
             UpdateArrowIndicator();
             UpdateStoneIndicator();
             UpdateWoodIndicator();
@@ -337,11 +332,11 @@ public class Character : MonoBehaviour
         Debug.Log("Taking damage: " + damage);
         health -= damage;
         lifeIndicator.TakeDamage(damageAmount);
-        playerProgress.health = health;
 
         if (health <= 0)
         {
             health = maxHealth;
+            playerProgress.UpdateFromCharacter(this);
             Respawn();
         }
     }
@@ -349,9 +344,8 @@ public class Character : MonoBehaviour
     private void Respawn()
     {
         transform.position = respawnPosition;
+        playerProgress.UpdateFromCharacter(this);
         health = maxHealth;
-        playerProgress.health = health;
-        playerProgress.SaveProgress();
     }
 
     private void Die()
@@ -367,25 +361,22 @@ public class Character : MonoBehaviour
     public void GetBow(GameObject bowPrefab)
     {
         hasBow = true;
+        playerProgress.UpdateFromCharacter(this);
         arrowPrefab = bowPrefab;
-        playerProgress.hasBow = hasBow;
-        playerProgress.SaveProgress();
     }
 
     public void GetPicota(GameObject picota)
     {
         hasPicota = true;
+        playerProgress.UpdateFromCharacter(this);
         picotaPrefab = picota;
-        playerProgress.hasPicota = hasPicota;
-        playerProgress.SaveProgress();
     }
 
     public void GetHacha(GameObject hacha)
     {
         hasHacha = true;
+        playerProgress.UpdateFromCharacter(this);
         hachaPrefab = hacha;
-        playerProgress.hasHacha = hasHacha;
-        playerProgress.SaveProgress();
     }
 
     private void SwordAttack()
@@ -423,9 +414,8 @@ public class Character : MonoBehaviour
     public void GetSword(GameObject sword)
     {
         hasSword = true;
+        playerProgress.UpdateFromCharacter(this);
         swordPrefab = sword;
-        playerProgress.hasSword = hasSword;
-        playerProgress.SaveProgress();
     }
 
     private void IniciarCargaDisparo()
