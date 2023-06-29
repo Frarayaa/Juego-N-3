@@ -7,6 +7,7 @@ public class PlayerProgress
     public int cantidadFlechas;
     public int cantidadMadera;
     public int cantidadPiedra;
+    public int healingItem;
     public bool hasPicota;
     public bool hasHacha;
     public bool hasSword;
@@ -14,9 +15,10 @@ public class PlayerProgress
     public string previousSceneName;
     public Character character;
 
-    public PlayerProgress(int health, int cantidadFlechas, int cantidadMadera, int cantidadPiedra, bool hasPicota, bool hasHacha, bool hasSword, bool hasBow)
+    public PlayerProgress(int health, int cantidadFlechas, int cantidadMadera, int cantidadPiedra, int healingItem, bool hasPicota, bool hasHacha, bool hasSword, bool hasBow)
     {
         this.health = health;
+        this.healingItem = healingItem;
         this.cantidadFlechas = cantidadFlechas;
         this.cantidadMadera = cantidadMadera;
         this.cantidadPiedra = cantidadPiedra;
@@ -30,6 +32,7 @@ public class PlayerProgress
     {
         // Guardar los datos del progreso del jugador en PlayerPrefs u otro método de almacenamiento
         PlayerPrefs.SetInt("Health", health);
+        PlayerPrefs.SetInt("healingItem", healingItem);
         PlayerPrefs.SetInt("Flechas", cantidadFlechas);
         PlayerPrefs.SetInt("Madera", cantidadMadera);
         PlayerPrefs.SetInt("Piedra", cantidadPiedra);
@@ -60,6 +63,10 @@ public class PlayerProgress
         {
             cantidadPiedra = PlayerPrefs.GetInt("Piedra");
         }
+        if (PlayerPrefs.HasKey("healingItem"))
+        {
+            healingItem = PlayerPrefs.GetInt("healingItem");
+        }
         if (PlayerPrefs.HasKey("HasPicota"))
         {
             hasPicota = PlayerPrefs.GetInt("HasPicota") == 1;
@@ -83,6 +90,7 @@ public class PlayerProgress
     {
         // Reiniciar los datos del progreso del jugador a los valores predeterminados
         health = 10;
+        healingItem = 0;
         cantidadFlechas = 0;
         cantidadMadera = 0;
         cantidadPiedra = 0;
@@ -91,19 +99,6 @@ public class PlayerProgress
         hasSword = false;
         hasBow = false;
         // Reiniciar otros datos relevantes
-        SaveProgress();
-    }
-
-    public void UpdateFromCharacter(Character character)
-    {
-        health = character.health;
-        cantidadFlechas = character.cantidadFlechas;
-        cantidadMadera = character.cantidadMadera;
-        cantidadPiedra = character.cantidadPiedra;
-        hasPicota = character.hasPicota;
-        hasHacha = character.hasHacha;
-        hasSword = character.hasSword;
-        hasBow = character.hasBow;
         SaveProgress();
     }
 }

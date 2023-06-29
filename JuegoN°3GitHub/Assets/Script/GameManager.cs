@@ -97,20 +97,10 @@ public class GameManager : MonoBehaviour
     public void SavePlayerProgress()
     {
         pp.SaveProgress();
-
-        // Convertir el objeto PlayerProgress a JSON
-        // string json = JsonUtility.ToJson(playerProgress);
-
-        // Guardar el JSON en algún lugar, como PlayerPrefs o un archivo
-        // PlayerPrefs.SetString("PlayerProgress", json);
     }
 
     private void LoadPlayerProgress()
     {
         pp.LoadProgress();
-        // Obtener el JSON del progreso del jugador
-        // string json = PlayerPrefs.GetString("PlayerProgress", "");
-
-        
     }
 }

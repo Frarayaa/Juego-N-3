@@ -21,6 +21,12 @@ public class LifeIndicator : MonoBehaviour
         UpdateLifeIndicator(); // Actualiza el sprite del indicador de vida.
     }
 
+    public void UpdateHealth(int health)
+    {
+        currentLife = currentLife + 3;
+        UpdateLifeIndicator();
+    }
+
     public void UpdateLife(int currentLife, int maxLife)
     {
         this.currentLife = currentLife;

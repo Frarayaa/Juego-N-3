@@ -32,6 +32,8 @@ public class Character : MonoBehaviour
     public int cantidadPiedra = 0;
     public int maxMadera = 10;
     public int maxPiedra = 10;
+    public int healingItem = 0;
+    public int maxHealingItem = 3;
     private bool isGrounded = false;
     private Vector3 respawnPosition;
     private SpriteRenderer spriteRenderer;
@@ -41,8 +43,10 @@ public class Character : MonoBehaviour
     public Text arrowText;
     public Text woodText;
     public Text stoneText;
+    public Text healingItemText;
+
     public LifeIndicator lifeIndicator;
-    public PlayerProgress playerProgress;
+    public GameManager gm;
 
     // Variables para el arco
     public bool hasBow = false;
@@ -53,6 +57,8 @@ public class Character : MonoBehaviour
     private float tiempoPasadoCarga = 0f;
     private bool estaCargando = false;
 
+
+
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -60,7 +66,7 @@ public class Character : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         health = maxHealth;
         respawnPosition = transform.position;
-        playerProgress.UpdateFromCharacter(this);
+        gm.pp.LoadProgress();
     }
 
     private void Update()
@@ -173,6 +179,23 @@ public class Character : MonoBehaviour
                 }
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            if (healingItem > 0)
+            {
+                // Llama a una función de curación aquí
+                CurePlayer();
+                healingItem--;
+                gm.pp.healingItem = healingItem;
+                gm.pp.SaveProgress();
+                UpdateHealingItemIndicator();
+            }
+            else
+            {
+                Debug.Log("No tienes ítems de curación disponibles.");
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -204,7 +227,8 @@ public class Character : MonoBehaviour
         if (cantidadMadera < maxMadera)
         {
             cantidadMadera++;
-            playerProgress.UpdateFromCharacter(this);
+            gm.pp.cantidadMadera = cantidadMadera;
+            gm.pp.SaveProgress();
             UpdateWoodIndicator();
             Debug.Log("Has recolectado 1 unidad de madera. Total de madera: " + cantidadMadera);
         }
@@ -215,7 +239,8 @@ public class Character : MonoBehaviour
         if (cantidadPiedra < maxPiedra)
         {
             cantidadPiedra++;
-            playerProgress.UpdateFromCharacter(this);
+            gm.pp.cantidadPiedra = cantidadPiedra;
+            gm.pp.SaveProgress();
             UpdateStoneIndicator();
             Debug.Log("Has recolectado 1 unidad de piedra. Total de piedra: " + cantidadPiedra);
         }
@@ -228,7 +253,10 @@ public class Character : MonoBehaviour
             cantidadMadera -= 1;
             cantidadPiedra -= 1;
             cantidadFlechas += 1;
-            playerProgress.UpdateFromCharacter(this);
+            gm.pp.cantidadMadera = cantidadMadera;
+            gm.pp.cantidadPiedra = cantidadPiedra;
+            gm.pp.cantidadFlechas = cantidadFlechas;
+            gm.pp.SaveProgress();
             UpdateArrowIndicator();
             UpdateStoneIndicator();
             UpdateWoodIndicator();
@@ -261,6 +289,10 @@ public class Character : MonoBehaviour
     private void UpdateStoneIndicator()
     {
         stoneText.text = "Piedra: " + cantidadPiedra;
+    }
+    private void UpdateHealingItemIndicator()
+    {
+        healingItemText.text = "Poción de curación: " + healingItem;
     }
 
     private void Attack()
@@ -332,20 +364,54 @@ public class Character : MonoBehaviour
         Debug.Log("Taking damage: " + damage);
         health -= damage;
         lifeIndicator.TakeDamage(damageAmount);
+        gm.pp.health = health;
 
         if (health <= 0)
         {
             health = maxHealth;
-            playerProgress.UpdateFromCharacter(this);
             Respawn();
+        }
+    }
+
+    private void CurePlayer()
+    {
+        // Aumenta la salud del jugador en una cantidad específica
+        int cantidadCuracion = 3; // Ajusta este valor según tus necesidades
+        health += cantidadCuracion;
+
+        // Asegúrate de que la salud no exceda el máximo
+        if (health > maxHealth)
+        {
+            health = maxHealth;
+            gm.pp.health = health;
+        }
+
+        // Actualiza el indicador de vida (si tienes uno)
+        lifeIndicator.UpdateHealth(health);
+    }
+
+    public void RecolectarItemCuracion()
+    {
+        if (healingItem < maxHealingItem)
+        {
+            healingItem++;
+            gm.pp.healingItem = healingItem;
+            UpdateHealingItemIndicator();
+            gm.pp.SaveProgress();
+            Debug.Log("Has recogido un ítem de curación. Total de ítems de curación: " + healingItem);
+        }
+        else
+        {
+            Debug.Log("No puedes recoger más ítems de curación. Has alcanzado el límite máximo.");
         }
     }
 
     private void Respawn()
     {
         transform.position = respawnPosition;
-        playerProgress.UpdateFromCharacter(this);
         health = maxHealth;
+        gm.pp.health = health;
+        gm.pp.SaveProgress();
     }
 
     private void Die()
@@ -361,22 +427,25 @@ public class Character : MonoBehaviour
     public void GetBow(GameObject bowPrefab)
     {
         hasBow = true;
-        playerProgress.UpdateFromCharacter(this);
         arrowPrefab = bowPrefab;
+        gm.pp.hasBow = hasBow;
+        gm.pp.SaveProgress();
     }
 
     public void GetPicota(GameObject picota)
     {
         hasPicota = true;
-        playerProgress.UpdateFromCharacter(this);
         picotaPrefab = picota;
+        gm.pp.hasPicota = hasPicota;
+        gm.pp.SaveProgress();
     }
 
     public void GetHacha(GameObject hacha)
     {
         hasHacha = true;
-        playerProgress.UpdateFromCharacter(this);
         hachaPrefab = hacha;
+        gm.pp.hasHacha = hasHacha;
+        gm.pp.SaveProgress();
     }
 
     private void SwordAttack()
@@ -414,8 +483,9 @@ public class Character : MonoBehaviour
     public void GetSword(GameObject sword)
     {
         hasSword = true;
-        playerProgress.UpdateFromCharacter(this);
         swordPrefab = sword;
+        gm.pp.hasSword = hasSword;
+        gm.pp.SaveProgress();
     }
 
     private void IniciarCargaDisparo()
@@ -435,6 +505,28 @@ public class Character : MonoBehaviour
 
     public void Load(PlayerProgress pp)
     {
+        health = gm.pp.health;
+        healingItem = gm.pp.healingItem;
+        cantidadMadera = gm.pp.cantidadMadera;
+        cantidadPiedra = gm.pp.cantidadPiedra;
+        cantidadFlechas = gm.pp.cantidadFlechas;
 
+        if (pp.hasBow)
+        {
+            GetBow(arrowPrefab);
+
+        }
+        if (pp.hasHacha)
+        {
+            GetHacha(hachaPrefab);
+        }
+        if (pp.hasPicota)
+        {
+            GetPicota(picotaPrefab);
+        }
+        if (pp.hasSword)
+        {
+            GetSword(swordPrefab);
+        }
     }
 }

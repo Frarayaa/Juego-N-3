@@ -7,7 +7,6 @@ public class ZorrilloController : MonoBehaviour
     public float attackCooldown = 3f; // Tiempo antes de que pueda atacar nuevamente
     public int maxHealth = 5;
     public GameObject damageAreaPrefab;  // Prefab del área de daño
-
     private Vector3 originalPosition;  // Posición original del enemigo
     private bool isEscaping = false;   // Indicador de escape activado
     private float attackTimer = 0f;    // Temporizador para el ataque
@@ -93,6 +92,7 @@ public class ZorrilloController : MonoBehaviour
 
         if (maxHealth <= 0)
         {
+            character.RecolectarItemCuracion();
             Destroy(gameObject);
         }
     }
