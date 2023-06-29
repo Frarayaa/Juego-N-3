@@ -20,10 +20,10 @@ public class PlayerProgress
         this.cantidadFlechas = cantidadFlechas;
         this.cantidadMadera = cantidadMadera;
         this.cantidadPiedra = cantidadPiedra;
-        this.hasPicota = false;
-        this.hasHacha = false;
-        this.hasSword = false;
-        this.hasBow = false;
+        this.hasPicota = hasPicota;
+        this.hasHacha = hasHacha;
+        this.hasSword = hasSword;
+        this.hasBow = hasBow;
     }
 
     public void SaveProgress()
@@ -91,19 +91,6 @@ public class PlayerProgress
         hasSword = false;
         hasBow = false;
         // Reiniciar otros datos relevantes
-        SaveProgress();
-    }
-
-    public void UpdateFromCharacter(Character character)
-    {
-        health = character.health;
-        cantidadFlechas = character.cantidadFlechas;
-        cantidadMadera = character.cantidadMadera;
-        cantidadPiedra = character.cantidadPiedra;
-        hasPicota = character.hasPicota;
-        hasHacha = character.hasHacha;
-        hasSword = character.hasSword;
-        hasBow = character.hasBow;
         SaveProgress();
     }
 }
