@@ -10,6 +10,7 @@ TagManager:
   - InvisibleArea
   - WoodArea
   - StoneArea
+  - "Ubicaci\xF3n"
   layers:
   - Default
   - TransparentFX

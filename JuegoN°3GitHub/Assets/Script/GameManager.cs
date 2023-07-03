@@ -8,12 +8,14 @@ public class GameManager : MonoBehaviour
     public bool isPaused = false;
     private string previousSceneName;
     public PlayerProgress pp;
-
+    public bool backToLand = false;
 
     private void Start()
     {
-        if (pauseMenuCanvasGroup) { 
+        if (pauseMenuCanvasGroup) {
             pauseMenuCanvasGroup.alpha = 0;
+            pauseMenuCanvasGroup.blocksRaycasts = false;
+            pauseMenuCanvasGroup.interactable = false;
         }
 
         // Cargar el progreso del jugador al iniciar el GameManager
@@ -69,6 +71,15 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(levelName);
     }
 
+    public void Reset()
+    {
+        pp.ResetProgress();
+        isPaused = false;
+        pauseMenuCanvasGroup.alpha = 0;
+        pauseMenuCanvasGroup.blocksRaycasts = false;
+        pauseMenuCanvasGroup.interactable = false;
+    }
+
     public void QuitGame()
     {
 #if UNITY_EDITOR
@@ -85,12 +96,14 @@ public class GameManager : MonoBehaviour
             isPaused = false;
             pauseMenuCanvasGroup.alpha = 0;
             pauseMenuCanvasGroup.blocksRaycasts = false;
+            pauseMenuCanvasGroup.interactable = false;
         }
         else
         {
             isPaused = true;
             pauseMenuCanvasGroup.alpha = 1;
             pauseMenuCanvasGroup.blocksRaycasts = true;
+            pauseMenuCanvasGroup.interactable = true;
         }
     }
 
@@ -99,7 +112,14 @@ public class GameManager : MonoBehaviour
         pp.SaveProgress();
     }
 
-    private void LoadPlayerProgress()
+    public void LoadPlayerPosition()
+    {
+        if (backToLand == false)
+        {
+            pp.PlayerPosition();
+        }
+    }
+    public void LoadPlayerProgress()
     {
         pp.LoadProgress();
     }

@@ -35,6 +35,7 @@ public class Character : MonoBehaviour
     public int healingItem = 0;
     public int maxHealingItem = 3;
     private bool isGrounded = false;
+    private Vector3 Position;
     private Vector3 respawnPosition;
     private SpriteRenderer spriteRenderer;
     private Collider2D characterCollider;
@@ -56,8 +57,6 @@ public class Character : MonoBehaviour
     public float cargaTiempo = 2f;
     private float tiempoPasadoCarga = 0f;
     private bool estaCargando = false;
-
-
 
     private void Start()
     {
@@ -207,6 +206,13 @@ public class Character : MonoBehaviour
         else if (other.CompareTag("StoneArea"))
         {
             isInStoneArea = true;
+        }
+
+        if (other.CompareTag("Ubicación"))
+        {
+            Position = transform.position;
+            gm.pp.SavePlayerPosition(Position);
+            Debug.Log(Position.ToString());
         }
     }
 
@@ -510,6 +516,11 @@ public class Character : MonoBehaviour
         cantidadMadera = gm.pp.cantidadMadera;
         cantidadPiedra = gm.pp.cantidadPiedra;
         cantidadFlechas = gm.pp.cantidadFlechas;
+
+        if (gm.backToLand == false)
+        {
+            gm.LoadPlayerPosition();
+        }
 
         if (pp.hasBow)
         {

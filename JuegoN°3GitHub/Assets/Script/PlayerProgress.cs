@@ -15,6 +15,8 @@ public class PlayerProgress
     public string previousSceneName;
     public Character character;
 
+    public bool reset = false;
+
     public PlayerProgress(int health, int cantidadFlechas, int cantidadMadera, int cantidadPiedra, int healingItem, bool hasPicota, bool hasHacha, bool hasSword, bool hasBow)
     {
         this.health = health;
@@ -26,6 +28,22 @@ public class PlayerProgress
         this.hasHacha = false;
         this.hasSword = false;
         this.hasBow = false;
+    }
+
+    public void SavePlayerPosition(Vector3 position)
+    {
+        PlayerPrefs.SetFloat("PlayerPositionX", position.x);
+        PlayerPrefs.SetFloat("PlayerPositionY", position.y);
+        PlayerPrefs.SetFloat("PlayerPositionZ", position.z);
+        PlayerPrefs.Save();
+    }
+
+    public Vector3 LoadPlayerPosition()
+    {
+        float posX = PlayerPrefs.GetFloat("PlayerPositionX");
+        float posY = PlayerPrefs.GetFloat("PlayerPositionY");
+        float posZ = PlayerPrefs.GetFloat("PlayerPositionZ");
+        return new Vector3(posX, posY, posZ);        
     }
 
     public void SaveProgress()
@@ -83,6 +101,13 @@ public class PlayerProgress
         {
             hasBow = PlayerPrefs.GetInt("HasBow") == 1;
         }
+    }
+
+    public void PlayerPosition()
+    { 
+        Vector3 playerPosition = LoadPlayerPosition();
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.transform.position = playerPosition;
         // Cargar otros datos relevantes
     }
 
@@ -98,6 +123,9 @@ public class PlayerProgress
         hasHacha = false;
         hasSword = false;
         hasBow = false;
+
+        Vector3 defaultPosition = new Vector3(-1f, -12f, 0f); // Cambiar los valores por la posición predeterminada deseada
+        SavePlayerPosition(defaultPosition);
         // Reiniciar otros datos relevantes
         SaveProgress();
     }

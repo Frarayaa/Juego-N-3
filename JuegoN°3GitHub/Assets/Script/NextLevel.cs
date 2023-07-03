@@ -32,6 +32,8 @@ public class NextLevel : MonoBehaviour
         yield return new WaitForSeconds(0.7f); // Ajusta el tiempo de espera según la duración de tu animación
         Debug.Log("Wait end");
         gm?.SavePlayerProgress();
+
+ 
         // Cargar la siguiente escena
         SceneManager.LoadScene(nextLevelName);
     }
