@@ -52,7 +52,7 @@ public class Enemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         spriteRenderer = GetComponent<SpriteRenderer>();
         detectionCollider = triangleVisual.GetComponent<PolygonCollider2D>();
-
+        maxHealth = 1;
         initialScale = transform.localScale;
         patrolStartPosition = transform.position;
         GeneratePatrolTargetPosition();
@@ -110,12 +110,14 @@ public class Enemy : MonoBehaviour
         isChasing = true;
         spriteRenderer.color = Color.red;
         chaseTimer = 0f;
+        maxHealth = 50;
     }
 
     private void StopChase()
     {
         isChasing = false;
         spriteRenderer.color = Color.white;
+        maxHealth = 50;
     }
 
     private void ChasePlayer()

@@ -50,6 +50,11 @@ public class Arrow : MonoBehaviour
             {
                 zorrillo.TakeDamage(damageAmount);
             }
+            BossController boss = collision.GetComponent<BossController>();
+            if (boss != null)
+            {
+                boss.TakeDamage(damageAmount);
+            }
             Destroy(gameObject);
         }
         else

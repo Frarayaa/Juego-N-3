@@ -327,6 +327,11 @@ public class Character : MonoBehaviour
             {
                 zorrillo.TakeDamage(damageAmount);
             }
+            BossController boss = enemyObject.GetComponent<BossController>();
+            if (boss != null)
+            {
+                boss.TakeDamage(damageAmount);
+            }
         }
     }
 
@@ -482,6 +487,11 @@ public class Character : MonoBehaviour
             if (zorrillo != null)
             {
                 zorrillo.TakeDamage(damageAmount);
+            }
+            BossController boss = enemyObject.GetComponent<BossController>();
+            if (boss != null)
+            {
+                boss.TakeDamage(damageAmount);
             }
         }
     }
