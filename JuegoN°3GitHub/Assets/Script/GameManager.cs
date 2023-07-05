@@ -5,8 +5,8 @@ public class GameManager : MonoBehaviour
 {
     public Character charc;
     public CanvasGroup pauseMenuCanvasGroup;
+    public static string previousScene;
     public bool isPaused = false;
-    private string previousSceneName;
     public PlayerProgress pp;
     public bool backToLand = false;
 
@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
             pauseMenuCanvasGroup.interactable = false;
         }
 
+        
         // Cargar el progreso del jugador al iniciar el GameManager
         pp.LoadProgress();
         charc.Load(pp);
@@ -42,18 +43,16 @@ public class GameManager : MonoBehaviour
 
     public void ShowDeathScreen()
     {
-        // Almacenar el nombre de la escena anterior
-        previousSceneName = SceneManager.GetActiveScene().name;
-
         // Cargar la escena de la pantalla de muerte
+        previousScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene("DeathScreen");
     }
 
     public void Retry()
     {
         // Cargar la escena anterior por su nombre almacenado
-        pp.LoadProgress();
-        SceneManager.LoadScene(previousSceneName);
+        SceneManager.LoadScene(previousScene);
+        charc.Respawn();
     }
 
     public void BackToMenu()

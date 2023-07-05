@@ -330,7 +330,7 @@ public class Character : MonoBehaviour
             BossController boss = enemyObject.GetComponent<BossController>();
             if (boss != null)
             {
-                boss.TakeDamage(damageAmount);
+                boss.TakeDamage(damageAmount, Vector3.zero);
             }
         }
     }
@@ -380,7 +380,7 @@ public class Character : MonoBehaviour
         if (health <= 0)
         {
             health = maxHealth;
-            Respawn();
+            gm.ShowDeathScreen();
         }
     }
 
@@ -417,17 +417,13 @@ public class Character : MonoBehaviour
         }
     }
 
-    private void Respawn()
+    public void Respawn()
     {
         transform.position = respawnPosition;
         health = maxHealth;
         gm.pp.health = health;
+        gm.pp.LoadProgress();
         gm.pp.SaveProgress();
-    }
-
-    private void Die()
-    {
-        Respawn();
     }
 
     public void SetCheckpoint(Vector3 checkpointPosition)
@@ -491,7 +487,7 @@ public class Character : MonoBehaviour
             BossController boss = enemyObject.GetComponent<BossController>();
             if (boss != null)
             {
-                boss.TakeDamage(damageAmount);
+                boss.TakeDamage(damageAmount, Vector3.zero);
             }
         }
     }
