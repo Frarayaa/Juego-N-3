@@ -2,24 +2,14 @@ using UnityEngine;
 
 public class SwordPickup : MonoBehaviour
 {
-    public Character charc;
-
-    private void Update()
-    {
-        if (charc.hasSword == true)
-        {
-            Destroy(gameObject);
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            charc = collision.GetComponent<Character>();
-            if (charc != null)
+            Character character = collision.GetComponent<Character>();
+            if (character != null)
             {
-                charc.GetSword(gameObject);
+                character.GetSword(gameObject);
                 Destroy(gameObject);
             }
         }

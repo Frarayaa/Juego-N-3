@@ -3,24 +3,15 @@ using UnityEngine;
 public class HachaManager : MonoBehaviour
 {
     public GameObject hachaPrefab;
-    public Character charc;
-
-    private void Update()
-    {
-        if (charc.hasSword == true)
-        {
-            Destroy(gameObject);
-        }
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            charc = collision.gameObject.GetComponent<Character>();
-            if (charc != null)
+            Character character = collision.gameObject.GetComponent<Character>();
+            if (character != null)
             {
-                charc.GetHacha(hachaPrefab);
+                character.GetHacha(hachaPrefab);
                 Destroy(gameObject); // Destruye el objeto que otorga el hacha
             }
         }
