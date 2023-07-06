@@ -64,7 +64,6 @@ public class Character : MonoBehaviour
         characterCollider = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
         health = maxHealth;
-        lifeIndicator.Life();
         respawnPosition = transform.position;
         gm.pp.LoadProgress();
     }
@@ -331,7 +330,7 @@ public class Character : MonoBehaviour
             BossController boss = enemyObject.GetComponent<BossController>();
             if (boss != null)
             {
-                boss.TakeDamage(damageAmount);
+                boss.TakeDamage(damageAmount, Vector3.zero);
             }
         }
     }
@@ -375,7 +374,7 @@ public class Character : MonoBehaviour
     {
         Debug.Log("Taking damage: " + damage);
         health -= damage;
-        lifeIndicator.Life();
+        lifeIndicator.TakeDamage(damageAmount);
         gm.pp.health = health;
 
         if (health <= 0)
@@ -390,16 +389,16 @@ public class Character : MonoBehaviour
         // Aumenta la salud del jugador en una cantidad específica
         int cantidadCuracion = 3; // Ajusta este valor según tus necesidades
         health += cantidadCuracion;
-        lifeIndicator.Life();
-        gm.pp.health = health;
 
         // Asegúrate de que la salud no exceda el máximo
         if (health > maxHealth)
         {
             health = maxHealth;
-            lifeIndicator.Life();
             gm.pp.health = health;
         }
+
+        // Actualiza el indicador de vida (si tienes uno)
+        lifeIndicator.UpdateHealth(health);
     }
 
     public void RecolectarItemCuracion()
@@ -422,7 +421,6 @@ public class Character : MonoBehaviour
     {
         transform.position = respawnPosition;
         health = maxHealth;
-        lifeIndicator.Life();
         gm.pp.health = health;
         gm.pp.LoadProgress();
         gm.pp.SaveProgress();
@@ -489,7 +487,7 @@ public class Character : MonoBehaviour
             BossController boss = enemyObject.GetComponent<BossController>();
             if (boss != null)
             {
-                boss.TakeDamage(damageAmount);
+                boss.TakeDamage(damageAmount, Vector3.zero);
             }
         }
     }

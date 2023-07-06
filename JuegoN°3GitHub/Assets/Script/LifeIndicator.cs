@@ -6,19 +6,32 @@ public class LifeIndicator : MonoBehaviour
     public Sprite[] lifeSprites; // Array de sprites de vida. Cada sprite representa un nivel de vida diferente.
     public Image lifeImage; // Componente Image del objeto "Life Indicator".
     public int maxLife = 3; // Cantidad máxima de vida del personaje.
-    public Character charc;
+
     private int currentLife; // Cantidad actual de vida del personaje.
 
     private void Start()
     {
-        currentLife = charc.health; // Establece la cantidad inicial de vida del personaje.
+        currentLife = maxLife; // Establece la cantidad inicial de vida del personaje.
         UpdateLifeIndicator(); // Actualiza el sprite del indicador de vida.
     }
 
-    public void Life()
+    public void TakeDamage(int damageAmount)
     {
-        currentLife = charc.health;
+        currentLife -= damageAmount; // Reduce la cantidad de vida actual según el daño recibido.
         UpdateLifeIndicator(); // Actualiza el sprite del indicador de vida.
+    }
+
+    public void UpdateHealth(int health)
+    {
+        currentLife = currentLife + 3;
+        UpdateLifeIndicator();
+    }
+
+    public void UpdateLife(int currentLife, int maxLife)
+    {
+        this.currentLife = currentLife;
+        this.maxLife = maxLife;
+        UpdateLifeIndicator();
     }
 
     private void UpdateLifeIndicator()

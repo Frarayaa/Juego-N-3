@@ -102,35 +102,12 @@ MonoBehaviour:
   gameMode: 1
   moveSpeedTopDown: 5
   moveSpeedSideScroll: 5
-  maxHealth: 6
+  maxHealth: 10
   health: 0
   damageAmount: 1
   attackCooldown: 1
   jumpForce: 5
   arrowSpeed: 10
-  cantidadFlechas: 0
-  maxCantidadFlechas: 10
-  hasSword: 0
-  swordPrefab: {fileID: 0}
-  picotaPrefab: {fileID: 0}
-  hachaPrefab: {fileID: 0}
-  isInWoodArea: 0
-  isInStoneArea: 0
-  hasPicota: 0
-  hasHacha: 0
-  cantidadMadera: 0
-  cantidadPiedra: 0
-  maxMadera: 10
-  maxPiedra: 10
-  healingItem: 0
-  maxHealingItem: 3
-  arrowText: {fileID: 0}
-  woodText: {fileID: 0}
-  stoneText: {fileID: 0}
-  healingItemText: {fileID: 0}
-  lifeIndicator: {fileID: 0}
-  gm: {fileID: 0}
-  hasBow: 0
   arrowPrefab: {fileID: 1810787786071732029, guid: 00db2a167e560794298f42e93306c2ec, type: 3}
   cargaTiempo: 2
 --- !u!70 &2943837127006588206
