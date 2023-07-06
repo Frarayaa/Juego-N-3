@@ -549,6 +549,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerSideScroll
       objectReference: {fileID: 0}
+    - target: {fileID: 3576497638422007131, guid: 7982ab23b9c73fa4d86f4483fc42eb77, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6514368129722466653, guid: 7982ab23b9c73fa4d86f4483fc42eb77, type: 3}
       propertyPath: m_BodyType
       value: 2
@@ -557,6 +561,10 @@ PrefabInstance:
       propertyPath: gm
       value: 
       objectReference: {fileID: 284995163}
+    - target: {fileID: 8060932721063485674, guid: 7982ab23b9c73fa4d86f4483fc42eb77, type: 3}
+      propertyPath: gameMode
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
