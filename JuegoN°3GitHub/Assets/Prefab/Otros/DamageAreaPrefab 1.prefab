@@ -99,8 +99,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageAreaColor: {r: 0, g: 1, b: 0, a: 0.5176471}
-  destroyDelay: 3
+  destroyDelay: 1.5
   damageAreaSize: {x: 10, y: 10, z: 0.2}
+  damage: 3
 --- !u!58 &6757012044065254064
 CircleCollider2D:
   m_ObjectHideFlags: 0

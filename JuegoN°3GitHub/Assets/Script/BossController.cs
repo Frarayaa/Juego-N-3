@@ -23,6 +23,7 @@ public class BossController : MonoBehaviour
     private int currentHealth;
     private Vector3 originalPosition;
     private bool isChasing;
+    public Transform meleeAttackArea;
 
     private void Start()
     {
@@ -99,11 +100,21 @@ public class BossController : MonoBehaviour
     {
         Debug.Log("Ataque cuerpo a cuerpo");
 
-        for (int i = 0; i < 3; i++)
+        Vector2 areaSize = meleeAttackArea.localScale;
+        Vector2 areaPosition = meleeAttackArea.position;
+
+        Collider2D[] colliders = Physics2D.OverlapAreaAll(areaPosition - areaSize / 2f, areaPosition + areaSize / 2f);
+
+        foreach (Collider2D collider in colliders)
         {
-            player.GetComponent<Character>().TakeDamage(normalAttackDamage);
+            Character character = collider.GetComponent<Character>();
+            if (character != null)
+            {
+                character.TakeDamage(normalAttackDamage);
+            }
         }
     }
+
 
     private void ChargeAttack()
     {
@@ -129,32 +140,13 @@ public class BossController : MonoBehaviour
         transform.position = originalPosition;
     }
 
-    public void TakeDamage(int damage, Vector3 attackerPosition)
+    public void TakeDamage(int damage)
     {
-        // Calcula la dirección desde el jefe hacia el atacante
-        Vector3 bossToAttacker = attackerPosition - transform.position;
-        Vector3 bossDirection = bossToAttacker.normalized;
+        currentHealth -= damage;
 
-        // Calcula el ángulo entre la dirección del jefe y la dirección frontal del jefe
-        float angle = Vector3.Angle(bossDirection, transform.forward);
-
-        // Define un ángulo de tolerancia para determinar si el atacante está detrás del jefe
-        float backstabAngle = 90f;
-
-        if (angle > backstabAngle)
+        if (currentHealth <= 0)
         {
-            // El atacante está detrás del jefe, aplica el daño al jefe
-            currentHealth -= damage;
-
-            if (currentHealth <= 0)
-            {
-                Die();
-            }
-        }
-        else
-        {
-            // El atacante no está detrás del jefe, no se aplica daño
-            Debug.Log("Solo puedes dañar al jefe por detrás");
+            Die();
         }
     }
 

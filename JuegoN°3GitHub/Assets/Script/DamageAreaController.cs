@@ -5,6 +5,7 @@ public class DamageAreaController : MonoBehaviour
     public Color damageAreaColor = Color.green;
     public float destroyDelay = 2f;
     public Vector3 damageAreaSize = new Vector3(1f, 1f, 0.2f);
+    public int damage = 1;
 
     private void Start()
     {
@@ -35,7 +36,7 @@ public class DamageAreaController : MonoBehaviour
             Character player = collision.GetComponent<Character>();
             if (player != null)
             {
-                player.TakeDamage(1);
+                player.TakeDamage(damage);
             }
         }
     }
