@@ -53,7 +53,7 @@ public class Arrow : MonoBehaviour
             BossController boss = collision.GetComponent<BossController>();
             if (boss != null)
             {
-                boss.TakeDamage(damageAmount, Vector3.zero);
+                boss.TakeDamage(damageAmount);
             }
             Destroy(gameObject);
         }
