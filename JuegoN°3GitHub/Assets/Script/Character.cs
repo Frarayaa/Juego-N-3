@@ -45,24 +45,35 @@ public class Character : MonoBehaviour
     public Text woodText;
     public Text stoneText;
     public Text healingItemText;
+    private float moveHorizontal;
+    private float moveVertical;
 
     public LifeIndicator lifeIndicator;
     public GameManager gm;
-
+    
     // Variables para el arco
     public bool hasBow = false;
     public GameObject arrowPrefab; // Corregido: ahora se declara públicamente
-
+    public Transform rectangleCenter; // Transform específico para la posición del rectángulo
+    public Vector2 dimensions = new Vector2(2.0f, 1.0f);
     // Variables para la carga de disparo
     public float cargaTiempo = 2f;
     private float tiempoPasadoCarga = 0f;
     private bool estaCargando = false;
+
+    private bool isFacingRight = true; // Variable para almacenar la dirección actual del personaje
+    private Animator animator;
+    private bool isAttacking = false;
+    private bool isShooting = false;
+    private bool isMining = false;
+    private bool isCutting = false;
 
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         characterCollider = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         health = maxHealth;
         lifeIndicator.Life();
         respawnPosition = transform.position;
@@ -80,11 +91,13 @@ public class Character : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab) && hasHacha && isInWoodArea)
         {
             RecolectarMadera();
+            isCutting = true;
         }
 
         if (Input.GetKeyDown(KeyCode.Tab) && hasPicota && isInStoneArea)
         {
             RecolectarPiedra();
+            isMining = true;
         }
 
         if (Input.GetKeyDown(KeyCode.C))
@@ -130,6 +143,7 @@ public class Character : MonoBehaviour
                     {
                         if (cantidadFlechas > 0)
                         {
+                            isShooting = true;
                             cantidadFlechas--;
                             UpdateArrowIndicator();
                             AimAndShoot();
@@ -140,11 +154,6 @@ public class Character : MonoBehaviour
                         {
                             Debug.Log("No tienes más flechas. Debes crear más.");
                         }
-                    }
-                    else
-                    {
-                        Attack();
-                        attackTimer = attackCooldown;
                     }
                 }
             }
@@ -159,6 +168,7 @@ public class Character : MonoBehaviour
                     if (hasSword)
                     {
                         SwordAttack();
+                        isAttacking = true;
                     }
 
                     attackTimer = attackCooldown;
@@ -177,6 +187,16 @@ public class Character : MonoBehaviour
                     // La carga está completa, dispara
                     Disparar();
                 }
+            }
+
+            // Flip the character if moving in the opposite direction
+            if (moveHorizontal > 0 && !isFacingRight)
+            {
+                Flip();
+            }
+            else if (moveHorizontal < 0 && isFacingRight)
+            {
+                Flip();
             }
         }
 
@@ -197,6 +217,16 @@ public class Character : MonoBehaviour
             }
         }
     }
+
+    private void Flip()
+    {
+        // Cambia la dirección del personaje multiplicando la escala en el eje X por -1
+        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
+        // Actualiza la variable de dirección del personaje
+        isFacingRight = !isFacingRight;
+    }
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -237,6 +267,7 @@ public class Character : MonoBehaviour
             gm.pp.cantidadMadera = cantidadMadera;
             gm.pp.SaveProgress();
             UpdateWoodIndicator();
+            isCutting = false;
             Debug.Log("Has recolectado 1 unidad de madera. Total de madera: " + cantidadMadera);
         }
     }
@@ -249,6 +280,7 @@ public class Character : MonoBehaviour
             gm.pp.cantidadPiedra = cantidadPiedra;
             gm.pp.SaveProgress();
             UpdateStoneIndicator();
+            isMining = false;
             Debug.Log("Has recolectado 1 unidad de piedra. Total de piedra: " + cantidadPiedra);
         }
     }
@@ -302,40 +334,6 @@ public class Character : MonoBehaviour
         healingItemText.text = "Poción de curación: " + healingItem;
     }
 
-    private void Attack()
-    {
-        // Perform attack logic here, such as dealing damage to enemies
-        // For simplicity, let's assume enemies have a script called EnemyHealth
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 1f);
-        foreach (Collider2D collider in hitColliders)
-        {
-            GameObject enemyObject = collider.gameObject;
-            if (enemyObject != null)
-            {
-                Enemy enemy = enemyObject.GetComponent<Enemy>();
-                if (enemy != null)
-                {
-                    enemy.TakeDamage(damageAmount);
-                }
-            }
-            TrampaOso trampa = enemyObject.GetComponent<TrampaOso>();
-            if (trampa != null)
-            {
-                trampa.TakeDamage(damageAmount);
-            }
-            ZorrilloController zorrillo = enemyObject.GetComponent<ZorrilloController>();
-            if (zorrillo != null)
-            {
-                zorrillo.TakeDamage(damageAmount);
-            }
-            BossController boss = enemyObject.GetComponent<BossController>();
-            if (boss != null)
-            {
-                boss.TakeDamage(damageAmount);
-            }
-        }
-    }
-
     private void Jump()
     {
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -361,6 +359,7 @@ public class Character : MonoBehaviour
 
         // Set the speed of the arrow
         arrowScript.speed = arrowSpeed;
+        isShooting = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -464,7 +463,7 @@ public class Character : MonoBehaviour
         // For example, let's perform a simple debug log message
         Debug.Log("Performing sword attack!");
 
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 1.5f);
+        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(rectangleCenter.position, dimensions, 0f);
         foreach (Collider2D collider in hitColliders)
         {
             GameObject enemyObject = collider.gameObject;
@@ -491,6 +490,38 @@ public class Character : MonoBehaviour
             {
                 boss.TakeDamage(damageAmount);
             }
+        }
+        isAttacking = false;
+    }
+
+    private void LateUpdate()
+    {
+        animator.SetBool("Idle", moveHorizontal == 0 && moveVertical == 0);
+        animator.SetBool("IsGrounded", isGrounded);
+        animator.SetBool("IsJumping", !isGrounded);
+        animator.SetBool("IsAttacking", isAttacking);
+        animator.SetBool("IsShooting", isShooting);
+        animator.SetBool("IsMining", isMining);
+        animator.SetBool("IsCutting", isCutting);
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (rectangleCenter != null)
+        {
+            Gizmos.color = Color.red;
+
+            // Calcula las esquinas del rectángulo
+            Vector3 bottomLeft = rectangleCenter.position - new Vector3(dimensions.x, dimensions.y, 0) * 0.5f;
+            Vector3 bottomRight = rectangleCenter.position + new Vector3(dimensions.x, -dimensions.y, 0) * 0.5f;
+            Vector3 topLeft = rectangleCenter.position + new Vector3(-dimensions.x, dimensions.y, 0) * 0.5f;
+            Vector3 topRight = rectangleCenter.position + new Vector3(dimensions.x, dimensions.y, 0) * 0.5f;
+
+            // Dibuja las líneas del rectángulo
+            Gizmos.DrawLine(bottomLeft, bottomRight);
+            Gizmos.DrawLine(bottomRight, topRight);
+            Gizmos.DrawLine(topRight, topLeft);
+            Gizmos.DrawLine(topLeft, bottomLeft);
         }
     }
 

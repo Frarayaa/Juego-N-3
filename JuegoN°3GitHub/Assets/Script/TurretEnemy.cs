@@ -14,11 +14,14 @@ public class TurretEnemy : MonoBehaviour
     private int health;
     private float attackTimer = 0f;
     private GameObject player;
+    private Animator animator;
+    private bool isShooting = false;
 
     private void Start()
     {
         health = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player");
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -32,6 +35,7 @@ public class TurretEnemy : MonoBehaviour
         if (attackTimer <= 0f && DetectPlayer(attackRadius))
         {
             Attack();
+            isShooting = true;
             attackTimer = attackCooldown;
         }
     }
@@ -53,6 +57,7 @@ public class TurretEnemy : MonoBehaviour
         {
             bulletScript.SetDamageAmount(damageAmount);
             bulletScript.SetDirection(direction);
+            isShooting = false; 
         }
     }
 
@@ -89,5 +94,9 @@ public class TurretEnemy : MonoBehaviour
     public void TakeDamageFromArrow()
     {
         Destroy(gameObject);
+    }
+    private void LateUpdate()
+    {
+        animator.SetBool("IsShooting", isShooting);
     }
 }

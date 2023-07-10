@@ -16,6 +16,8 @@ public class ZorrilloController : MonoBehaviour
     public float movementAreaSize = 4f;
     private Vector3 movementAreaCenter;
     private Vector3 targetPosition;
+    private Animator animator;
+    private bool isMoving = false;
 
     private void Start()
     {
@@ -27,12 +29,14 @@ public class ZorrilloController : MonoBehaviour
 
         // Establecer una posición de destino inicial
         targetPosition = GetRandomPositionInMovementArea();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
         if (!isEscaping)
         {
+            isMoving = true;
             // Moverse hacia la posición de destino dentro del área determinada
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
 
@@ -103,5 +107,9 @@ public class ZorrilloController : MonoBehaviour
         float randomX = Random.Range(-movementAreaSize, movementAreaSize);
         float randomY = Random.Range(-movementAreaSize, movementAreaSize);
         return movementAreaCenter + new Vector3(randomX, randomY, 0f);
+    }
+    private void LateUpdate()
+    {
+        animator.SetBool("Idle", !isMoving);
     }
 }

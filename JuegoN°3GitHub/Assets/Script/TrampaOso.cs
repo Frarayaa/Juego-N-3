@@ -11,13 +11,15 @@ public class TrampaOso : MonoBehaviour
     public int maxHealth = 5;
 
     private int presionesRealizadas = 0; // Contador de presiones realizadas
-    private bool jugadorAtrapado = false; // Indicador de si el jugador está atrapado
+    private bool isAttacking = false; // Indicador de si el jugador está atrapado
     private float tiempoTranscurrido = 0f; // Tiempo transcurrido desde que el jugador fue atrapado
     private Character jugadorController; // Referencia al controlador del jugador
     private Vector3 posicionTrampa; // Posición de la trampa
+    private Animator animator;
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         // Obtener la referencia al componente PlayerController del jugador
         jugadorController = FindObjectOfType<Character>();
         posicionTrampa = transform.position;
@@ -25,7 +27,7 @@ public class TrampaOso : MonoBehaviour
 
     void Update()
     {
-        if (jugadorAtrapado)
+        if (isAttacking)
         {
             tiempoTranscurrido += Time.deltaTime;
 
@@ -61,9 +63,9 @@ public class TrampaOso : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && !jugadorAtrapado)
+        if (collision.gameObject.CompareTag("Player") && !isAttacking)
         {
-            jugadorAtrapado = true;
+            isAttacking = true;
             jugadorController.enabled = false; // Desactivar el control del jugador
             jugadorController.transform.position = posicionTrampa; // Colocar al jugador en la posición de la trampa
         }
@@ -71,7 +73,7 @@ public class TrampaOso : MonoBehaviour
 
     void ReiniciarTrampa()
     {
-        jugadorAtrapado = false;
+        isAttacking = false;
         tiempoTranscurrido = 0f;
         presionesRealizadas = 0;
         jugadorController.enabled = true; // Reactivar el control del jugador
@@ -85,5 +87,9 @@ public class TrampaOso : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    private void LateUpdate()
+    {
+        animator.SetBool("IsAttacking", isAttacking);
     }
 }

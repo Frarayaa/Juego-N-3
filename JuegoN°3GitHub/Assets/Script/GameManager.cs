@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public bool isPaused = false;
     public PlayerProgress pp;
     public bool backToLand = false;
+    public Animator transitionAnimator;
 
     private void Start()
     {

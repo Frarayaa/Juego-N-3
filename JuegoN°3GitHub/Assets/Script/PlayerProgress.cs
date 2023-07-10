@@ -115,7 +115,7 @@ public class PlayerProgress
     public void ResetProgress()
     {
         // Reiniciar los datos del progreso del jugador a los valores predeterminados
-        health = 10;
+        health = 6;
         healingItem = 0;
         cantidadFlechas = 0;
         cantidadMadera = 0;

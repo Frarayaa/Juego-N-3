@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour
     public float chaseDuration = 5f;
     public float damageCooldown = 1f;
     public int maxHealth = 50;
-
+    private Animator animator;
     public GameObject triangleVisual;
     public Color activeColor = Color.green;
     public Color inactiveColor = Color.gray;
@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
     private Vector3 patrolStartPosition;
     private Vector3 patrolTargetPosition;
     private Vector2 initialScale;
+    private bool isMoving = false;
 
     private PolygonCollider2D detectionCollider;
 
@@ -56,6 +57,7 @@ public class Enemy : MonoBehaviour
         initialScale = transform.localScale;
         patrolStartPosition = transform.position;
         GeneratePatrolTargetPosition();
+        animator = GetComponent<Animator>();
 
         triangleVisual.SetActive(true);
         triangleVisual.GetComponent<SpriteRenderer>().color = inactiveColor;
@@ -146,6 +148,7 @@ public class Enemy : MonoBehaviour
         direction.Normalize();
         transform.position += direction * patrolSpeed * Time.deltaTime;
         FlipSprite(new Vector2(direction.x, direction.y));
+        isMoving = true;
     }
 
     private IEnumerator StartPatrolTopDown()
@@ -177,6 +180,7 @@ public class Enemy : MonoBehaviour
         direction.Normalize();
         transform.position += direction * patrolSpeed * Time.deltaTime;
         FlipSprite(new Vector2(direction.x, direction.y));
+        isMoving = true;
     }
 
     private IEnumerator StartPatrolSideScroll()
@@ -250,5 +254,9 @@ public class Enemy : MonoBehaviour
         {
             transform.localScale = new Vector2(transform.localScale.x, initialScale.y);
         }
+    }
+    private void LateUpdate()
+    {
+        animator.SetBool("Idle", !isMoving);
     }
 }

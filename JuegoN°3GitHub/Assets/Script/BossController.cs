@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class BossController : MonoBehaviour
 {
@@ -15,21 +16,26 @@ public class BossController : MonoBehaviour
     public int normalAttackDamage = 2;
     public int chargedAttackDamage = 4;
     public int maxHealth = 10;
+    public GameObject meleeAreaPrefab;
     public GameObject damageAreaPrefab;
     private Transform player;
     private bool isChargingAttack;
     private bool isIdle;
     private float idleTimer;
-    private int currentHealth;
+    public int currentHealth;
     private Vector3 originalPosition;
     private bool isChasing;
     public Transform meleeAttackArea;
+    private Animator animator;
+    private bool isAttacking = false;
+    private bool isCharging = false;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         originalPosition = transform.position;
         currentHealth = maxHealth;
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -57,6 +63,7 @@ public class BossController : MonoBehaviour
                 if (meleeAttackTimer <= 0f)
                 {
                     MeleeAttack();
+                    isAttacking = true;
                     meleeAttackTimer = meleeAttackCooldown; // Reinicia el temporizador de enfriamiento
                 }
                 else
@@ -75,6 +82,7 @@ public class BossController : MonoBehaviour
                 if (chargeAttackTimer <= 0f)
                 {
                     ChargeAttack();
+                    isCharging = true;
                     chargeAttackTimer = chargeAttackCooldown;
                 }
                 
@@ -113,6 +121,32 @@ public class BossController : MonoBehaviour
                 character.TakeDamage(normalAttackDamage);
             }
         }
+        GameObject meleeArea = Instantiate(meleeAreaPrefab, transform.position, Quaternion.identity);
+
+        // Obtener el componente SpriteRenderer del área de daño
+        SpriteRenderer spriteRenderer = meleeArea.GetComponent<SpriteRenderer>();
+
+        // Cambiar gradualmente el color de amarillo a rojo
+        StartCoroutine(ChangeDamageAreaColor(spriteRenderer, Color.yellow, Color.red, 1f));
+    }
+
+    private IEnumerator ChangeDamageAreaColor(SpriteRenderer spriteRenderer, Color startColor, Color endColor, float duration)
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            float t = elapsedTime / duration;
+            spriteRenderer.color = Color.Lerp(startColor, endColor, t);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Establecer el color final de ataque
+        spriteRenderer.color = endColor;
+
+        Destroy(spriteRenderer.gameObject);
+        isAttacking = false;
     }
 
 
@@ -154,6 +188,7 @@ public class BossController : MonoBehaviour
     {
         // Instanciar el prefab del área de daño en la posición del enemigo
         Instantiate(damageAreaPrefab, transform.position, Quaternion.identity);
+        isCharging = false;
     }
 
     private void Die()
@@ -166,5 +201,12 @@ public class BossController : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, chaseLimit);
+    }
+    private void LateUpdate()
+    {
+        animator.SetBool("Idle", !isChasing);
+        animator.SetBool("IsAttacking", isAttacking);
+        animator.SetBool("IsCharging", isCharging);
+        animator.SetBool("IsChasing", isChasing);
     }
 }
