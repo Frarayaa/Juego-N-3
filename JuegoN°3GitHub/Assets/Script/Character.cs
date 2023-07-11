@@ -65,8 +65,8 @@ public class Character : MonoBehaviour
     private Animator animator;
     private bool isAttacking = false;
     private bool isShooting = false;
-    private bool isMining = false;
-    private bool isCutting = false;
+    public bool isMining = false;
+    public bool isCutting = false;
 
     private void Start()
     {
@@ -94,14 +94,15 @@ public class Character : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Tab) && hasHacha && isInWoodArea)
         {
-            RecolectarMadera();
             isCutting = true;
+            Debug.Log("Se hizo verdad");
+            RecolectarMadera();
         }
 
         if (Input.GetKeyDown(KeyCode.Tab) && hasPicota && isInStoneArea)
         {
-            RecolectarPiedra();
             isMining = true;
+            RecolectarPiedra();
         }
 
         if (Input.GetKeyDown(KeyCode.C))
@@ -171,8 +172,8 @@ public class Character : MonoBehaviour
                     // Check if the character has a sword
                     if (hasSword)
                     {
-                        SwordAttack();
                         isAttacking = true;
+                        SwordAttack();
                     }
 
                     attackTimer = attackCooldown;
@@ -268,10 +269,12 @@ public class Character : MonoBehaviour
         if (cantidadMadera < maxMadera)
         {
             cantidadMadera++;
+            isCutting = false;
+            Debug.Log("Se hizo mentira");
             gm.pp.cantidadMadera = cantidadMadera;
             gm.pp.SaveProgress();
             UpdateWoodIndicator();
-            isCutting = false;
+           
             Debug.Log("Has recolectado 1 unidad de madera. Total de madera: " + cantidadMadera);
         }
     }
@@ -281,10 +284,11 @@ public class Character : MonoBehaviour
         if (cantidadPiedra < maxPiedra)
         {
             cantidadPiedra++;
+            isMining = false;
             gm.pp.cantidadPiedra = cantidadPiedra;
             gm.pp.SaveProgress();
             UpdateStoneIndicator();
-            isMining = false;
+            
             Debug.Log("Has recolectado 1 unidad de piedra. Total de piedra: " + cantidadPiedra);
         }
     }
@@ -363,6 +367,7 @@ public class Character : MonoBehaviour
 
         // Set the speed of the arrow
         arrowScript.speed = arrowSpeed;
+
         isShooting = false;
     }
 
@@ -466,7 +471,7 @@ public class Character : MonoBehaviour
         // This can be a melee attack animation or any other action you want
         // For example, let's perform a simple debug log message
         Debug.Log("Performing sword attack!");
-
+        isAttacking = false;
         Collider2D[] hitColliders = Physics2D.OverlapBoxAll(rectangleCenter.position, dimensions, 0f);
         foreach (Collider2D collider in hitColliders)
         {
@@ -495,7 +500,6 @@ public class Character : MonoBehaviour
                 boss.TakeDamage(damageAmount);
             }
         }
-        isAttacking = false;
     }
 
     private void LateUpdate()
