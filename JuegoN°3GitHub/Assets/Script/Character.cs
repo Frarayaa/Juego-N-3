@@ -76,6 +76,10 @@ public class Character : MonoBehaviour
         animator = GetComponent<Animator>();
         health = maxHealth;
         lifeIndicator.Life();
+        UpdateWoodIndicator();
+        UpdateStoneIndicator();
+        UpdateArrowIndicator();
+        UpdateHealingItemIndicator(); 
         respawnPosition = transform.position;
         gm.pp.LoadProgress();
     }

@@ -1169,6 +1169,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1095062313}
     - target: {fileID: 3917281421170836331, guid: 8d9f48374f9339749a29318d248b290a, type: 3}
+      propertyPath: pp.character
+      value: 
+      objectReference: {fileID: 1095062313}
+    - target: {fileID: 3917281421170836331, guid: 8d9f48374f9339749a29318d248b290a, type: 3}
       propertyPath: pauseMenuCanvasGroup
       value: 
       objectReference: {fileID: 2132965431}
