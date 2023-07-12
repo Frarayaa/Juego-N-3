@@ -54,6 +54,7 @@ public class Enemy : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         detectionCollider = triangleVisual.GetComponent<PolygonCollider2D>();
         maxHealth = 1;
+        patrolAreaCenterTopDown = transform.position;
         initialScale = transform.localScale;
         patrolStartPosition = transform.position;
         GeneratePatrolTargetPosition();

@@ -511,8 +511,8 @@ public class Character : MonoBehaviour
             
             if (moveHorizontal != 0 ||  moveVertical != 0)
             {
-                animator.SetFloat("IdleX", moveHorizontal);
-                animator.SetFloat("IdleY", moveVertical);
+                animator.SetFloat("IdleX", Mathf.Abs (moveHorizontal));
+                animator.SetFloat("IdleY", Mathf.Abs (moveVertical));
             }
         }
         else if (gameMode == GameMode.SideScroll)
