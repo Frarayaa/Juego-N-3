@@ -111,5 +111,18 @@ public class ZorrilloController : MonoBehaviour
     private void LateUpdate()
     {
         animator.SetBool("Idle", !isMoving);
+
+        // Flip en el eje x según la dirección de movimiento
+        if (isMoving)
+        {
+            if (targetPosition.x < transform.position.x)
+            {
+                transform.localScale = new Vector3(-1f, 1f, 1f);
+            }
+            else if (targetPosition.x > transform.position.x)
+            {
+                transform.localScale = new Vector3(1f, 1f, 1f);
+            }
+        }
     }
 }

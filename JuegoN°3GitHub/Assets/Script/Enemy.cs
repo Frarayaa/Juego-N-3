@@ -127,7 +127,8 @@ public class Enemy : MonoBehaviour
         Vector3 direction = player.position - transform.position;
         direction.Normalize();
         transform.position += direction * chaseSpeed * Time.deltaTime;
-        FlipSprite(new Vector2(direction.x, direction.y));
+        FlipSprite(direction.x);
+        isMoving = true;
     }
 
     private void PatrolTopDown()
@@ -147,7 +148,7 @@ public class Enemy : MonoBehaviour
 
         direction.Normalize();
         transform.position += direction * patrolSpeed * Time.deltaTime;
-        FlipSprite(new Vector2(direction.x, direction.y));
+        FlipSprite(direction.x);
         isMoving = true;
     }
 
@@ -179,7 +180,7 @@ public class Enemy : MonoBehaviour
 
         direction.Normalize();
         transform.position += direction * patrolSpeed * Time.deltaTime;
-        FlipSprite(new Vector2(direction.x, direction.y));
+        FlipSprite(direction.x);
         isMoving = true;
     }
 
@@ -235,28 +236,21 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void FlipSprite(Vector2 direction)
+    private void FlipSprite(float directionX)
     {
-        if (direction.x < 0f)
+        if (directionX < 0f)
         {
             transform.localScale = new Vector2(-initialScale.x, initialScale.y);
         }
-        else if (direction.x > 0f)
+        else if (directionX > 0f)
         {
             transform.localScale = new Vector2(initialScale.x, initialScale.y);
         }
-
-        if (direction.y < 0f)
-        {
-            transform.localScale = new Vector2(transform.localScale.x, -initialScale.y);
-        }
-        else if (direction.y > 0f)
-        {
-            transform.localScale = new Vector2(transform.localScale.x, initialScale.y);
-        }
     }
+
     private void LateUpdate()
     {
         animator.SetBool("Idle", !isMoving);
+        isMoving = false; // Reiniciar el indicador de movimiento
     }
 }

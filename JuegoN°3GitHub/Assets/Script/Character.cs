@@ -118,8 +118,8 @@ public class Character : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Dynamic;
 
             // Move the character based on the current mode
-            float moveHorizontal = Input.GetAxis("Horizontal");
-            float moveVertical = Input.GetAxis("Vertical");
+            moveHorizontal = Input.GetAxis("Horizontal");
+            moveVertical = Input.GetAxis("Vertical");
 
             if (gameMode == GameMode.TopDown)
             {
@@ -504,9 +504,27 @@ public class Character : MonoBehaviour
 
     private void LateUpdate()
     {
-        animator.SetBool("Idle", moveHorizontal == 0 && moveVertical == 0);
-        animator.SetBool("IsGrounded", isGrounded);
-        animator.SetBool("IsJumping", !isGrounded);
+        if (gameMode == GameMode.TopDown)
+        {
+            animator.SetFloat("moveHorizontal", moveHorizontal);
+            animator.SetFloat("moveVertical", moveVertical);
+            
+            if (moveHorizontal != 0 ||  moveVertical != 0)
+            {
+                animator.SetFloat("IdleX", moveHorizontal);
+                animator.SetFloat("IdleY", moveVertical);
+            }
+        }
+        else if (gameMode == GameMode.SideScroll)
+        {
+            animator.SetFloat("moveSidescroll", moveHorizontal);
+
+            if (moveHorizontal != 0)
+                animator.SetFloat("IdleSidescroll", moveHorizontal);
+
+            animator.SetBool("IsGrounded", isGrounded);
+            animator.SetBool("IsJumping", !isGrounded);
+        }
         animator.SetBool("IsAttacking", isAttacking);
         animator.SetBool("IsShooting", isShooting);
         animator.SetBool("IsMining", isMining);
