@@ -522,13 +522,13 @@ public class Character : MonoBehaviour
             if (moveHorizontal != 0)
                 animator.SetFloat("IdleSidescroll", moveHorizontal);
 
-            animator.SetBool("IsGrounded", isGrounded);
-            animator.SetBool("IsJumping", !isGrounded);
+            animator.SetTrigger("IsGrounded");
+            animator.SetTrigger("IsJumping");
         }
         animator.SetBool("IsAttacking", isAttacking);
-        animator.SetBool("IsShooting", isShooting);
-        animator.SetBool("IsMining", isMining);
-        animator.SetBool("IsCutting", isCutting);
+        animator.SetTrigger("IsShooting");
+        animator.SetTrigger("IsMining");
+        animator.SetTrigger("IsCutting");
     }
 
     private void OnDrawGizmos()
