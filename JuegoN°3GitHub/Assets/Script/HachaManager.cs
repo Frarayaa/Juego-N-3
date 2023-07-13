@@ -7,7 +7,7 @@ public class HachaManager : MonoBehaviour
 
     private void Update()
     {
-        if (charc.hasSword == true)
+        if (charc.hasHacha == true)
         {
             Destroy(gameObject);
         }

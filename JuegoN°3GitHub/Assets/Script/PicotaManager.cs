@@ -7,7 +7,7 @@ public class PicotaManager : MonoBehaviour
 
     private void Update()
     {
-        if (charc.hasSword == true)
+        if (charc.hasPicota == true)
         {
             Destroy(gameObject);
         }

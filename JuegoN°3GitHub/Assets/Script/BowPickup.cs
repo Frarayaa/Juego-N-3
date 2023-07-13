@@ -7,7 +7,7 @@ public class BowPickup : MonoBehaviour
 
     private void Update()
     {
-        if (charc.hasSword == true)
+        if (charc.hasBow == true)
         {
             Destroy(gameObject);
         }
