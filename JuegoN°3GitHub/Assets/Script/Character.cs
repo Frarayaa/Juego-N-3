@@ -75,13 +75,14 @@ public class Character : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         health = maxHealth;
+        respawnPosition = transform.position;
+        gm.pp.LoadProgress();
+        Load(gm.pp);
         lifeIndicator.Life();
         UpdateWoodIndicator();
         UpdateStoneIndicator();
         UpdateArrowIndicator();
-        UpdateHealingItemIndicator(); 
-        respawnPosition = transform.position;
-        gm.pp.LoadProgress();
+        UpdateHealingItemIndicator();
     }
 
     private void Update()
@@ -339,7 +340,7 @@ public class Character : MonoBehaviour
     }
     private void UpdateHealingItemIndicator()
     {
-        healingItemText.text = "Poción de curación: " + healingItem;
+        healingItemText.text = "Pocion de curacion: " + healingItem;
     }
 
     private void Jump()
@@ -432,6 +433,7 @@ public class Character : MonoBehaviour
         health = maxHealth;
         lifeIndicator.Life();
         gm.pp.health = health;
+        gm.pp.SaveProgress();
         gm.pp.LoadProgress();
         gm.pp.SaveProgress();
     }

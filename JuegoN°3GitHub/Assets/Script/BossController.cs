@@ -29,6 +29,7 @@ public class BossController : MonoBehaviour
     private Animator animator;
     private bool isAttacking = false;
     private bool isCharging = false;
+    public Final fin;
 
     private void Start()
     {
@@ -195,6 +196,7 @@ public class BossController : MonoBehaviour
     {
         Debug.Log("El jefe ha muerto");
         gameObject.SetActive(false);
+        fin.destruir = true;
     }
 
     private void OnDrawGizmosSelected()

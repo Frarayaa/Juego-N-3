@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour
     public void Retry()
     {
         // Cargar la escena anterior por su nombre almacenado
+        pp.health = 6;
+        pp.SaveProgress();
         SceneManager.LoadScene(previousScene);
         charc.Respawn();
     }
