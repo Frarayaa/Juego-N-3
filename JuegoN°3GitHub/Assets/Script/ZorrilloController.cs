@@ -10,7 +10,7 @@ public class ZorrilloController : MonoBehaviour
     private Vector3 originalPosition;  // Posición original del enemigo
     private bool isEscaping = false;   // Indicador de escape activado
     private float attackTimer = 0f;    // Temporizador para el ataque
-    private Character character;       // Referencia al personaje
+    public Character character;       // Referencia al personaje
 
     // Definir el área de movimiento
     public float movementAreaSize = 4f;
@@ -75,7 +75,7 @@ public class ZorrilloController : MonoBehaviour
     {
         // Verificar si el jugador está cerca del enemigo (puedes ajustar la distancia según tus necesidades)
         float distance = Vector3.Distance(transform.position, character.transform.position);
-        return distance <= 2f;
+        return distance <= 4f;
     }
 
     private void CreateDamageArea()
@@ -111,18 +111,5 @@ public class ZorrilloController : MonoBehaviour
     private void LateUpdate()
     {
         animator.SetBool("Idle", !isMoving);
-
-        // Flip en el eje x según la dirección de movimiento
-        if (isMoving)
-        {
-            if (targetPosition.x < transform.position.x)
-            {
-                transform.localScale = new Vector3(-1f, 1f, 1f);
-            }
-            else if (targetPosition.x > transform.position.x)
-            {
-                transform.localScale = new Vector3(1f, 1f, 1f);
-            }
-        }
     }
 }

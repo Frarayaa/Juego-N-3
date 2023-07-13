@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7347705776486130361}
   m_Layer: 7
   m_Name: Zorrillo
-  m_TagString: Enemy
+  m_TagString: Zorrillo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 4273036662058476059}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.1755, y: -0.7321, z: 0}
-  m_LocalScale: {x: 0.008764481, y: 0.008764481, z: 0.008764481}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.008764481}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 11
   m_Sprite: {fileID: 136757101, guid: 9a1c1a33a6098284dbb6b9585c8d7df9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -105,6 +105,7 @@ MonoBehaviour:
   attackCooldown: 30
   maxHealth: 2
   damageAreaPrefab: {fileID: 1186375393090062464, guid: 78fa4aa1bfe56dd40a5887437cbeb882, type: 3}
+  character: {fileID: 8060932721063485674, guid: 27b636e767de300478c78019a88e9560, type: 3}
   movementAreaSize: 3
 --- !u!60 &3183012441999374152
 PolygonCollider2D:

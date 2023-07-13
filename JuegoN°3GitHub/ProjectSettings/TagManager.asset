@@ -11,6 +11,10 @@ TagManager:
   - WoodArea
   - StoneArea
   - "Ubicaci\xF3n"
+  - Plataforma
+  - Acido
+  - Jugador
+  - Zorrillo
   layers:
   - Default
   - TransparentFX
