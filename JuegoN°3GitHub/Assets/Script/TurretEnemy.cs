@@ -15,7 +15,7 @@ public class TurretEnemy : MonoBehaviour
     private float attackTimer = 0f;
     private GameObject player;
     private Animator animator;
-    private bool isShooting = false;
+    private bool IsShooting = false;
 
     private void Start()
     {
@@ -35,9 +35,14 @@ public class TurretEnemy : MonoBehaviour
         if (attackTimer <= 0f && DetectPlayer(attackRadius))
         {
             Attack();
-            isShooting = true;
+            IsShooting = true;
             attackTimer = attackCooldown;
         }
+        else
+        {
+            IsShooting = false; // Set isShooting to false if the player is not within the attack radius
+        }
+
     }
 
     private void Attack()
@@ -57,7 +62,7 @@ public class TurretEnemy : MonoBehaviour
         {
             bulletScript.SetDamageAmount(damageAmount);
             bulletScript.SetDirection(direction);
-            isShooting = false; 
+            IsShooting = false; 
         }
     }
 
@@ -97,6 +102,6 @@ public class TurretEnemy : MonoBehaviour
     }
     private void LateUpdate()
     {
-        animator.SetBool("IsShooting", isShooting);
+        animator.SetBool("IsShooting", IsShooting);
     }
 }
