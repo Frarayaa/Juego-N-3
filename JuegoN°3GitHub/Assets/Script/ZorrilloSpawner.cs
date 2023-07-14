@@ -43,7 +43,7 @@ public class ZorrilloSpawner : MonoBehaviour
 
         foreach (var collider in colliders)
         {
-            if (collider.CompareTag("Zorrillo"))
+            if (collider.CompareTag("Enemy"))
             {
                 hasEnemiesNearby = true;
                 break;
