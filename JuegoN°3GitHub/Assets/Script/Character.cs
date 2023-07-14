@@ -527,10 +527,52 @@ public class Character : MonoBehaviour
             animator.SetTrigger("IsGrounded");
             animator.SetTrigger("IsJumping");
         }
-        animator.SetBool("IsAttacking", isAttacking);
-        animator.SetTrigger("IsShooting");
-        animator.SetTrigger("IsMining");
-        animator.SetTrigger("IsCutting");
+
+        {
+            if (Input.GetButtonDown("Fire1") && hasSword)
+            {
+                animator.SetBool("IsAttacking", true);
+            }
+
+            if (Input.GetButtonUp("Fire1") && hasSword)
+            {
+                animator.SetBool("IsAttacking", false);
+            }
+
+            if (Input.GetButtonDown("Fire2") && hasBow)
+            {
+                animator.SetBool("IsShooting", true);
+            }
+
+            if (Input.GetButtonUp("Fire2") && hasBow)
+            {
+                animator.SetBool("IsShooting", false);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                if (hasPicota && gameObject.CompareTag("WoodArea"))
+                {
+                    animator.SetBool("IsCutting", true);
+                }
+                else if (hasHacha && gameObject.CompareTag("StoneArea"))
+                {
+                    animator.SetBool("IsMining", true);
+                }
+            }
+
+            if (Input.GetKeyUp(KeyCode.Tab))
+            {
+                if (hasPicota)
+                {
+                    animator.SetBool("IsMining", false);
+                }
+                if (hasHacha)
+                {
+                    animator.SetBool("IsCutting", false);
+                }
+            }
+        }
     }
 
     private void OnDrawGizmos()
