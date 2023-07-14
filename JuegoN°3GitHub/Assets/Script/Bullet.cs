@@ -14,8 +14,14 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
+        // Calculate the rotation angle based on the direction vector
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        // Apply the rotation to the bullet's transform
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
         // Move the bullet in the set direction
-        transform.Translate(direction * speed * Time.deltaTime);
+        transform.Translate(Vector3.right * speed * Time.deltaTime);
     }
 
     public void SetDirection(Vector2 newDirection)

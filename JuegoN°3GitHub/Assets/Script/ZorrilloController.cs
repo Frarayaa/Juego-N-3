@@ -18,6 +18,7 @@ public class ZorrilloController : MonoBehaviour
     private Vector3 targetPosition;
     private Animator animator;
     private bool isMoving = false;
+    private bool isFacingRight = true; // Variable para controlar la dirección del sprite
 
     private void Start()
     {
@@ -44,6 +45,7 @@ public class ZorrilloController : MonoBehaviour
             if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
             {
                 targetPosition = GetRandomPositionInMovementArea();
+                FlipSprite(targetPosition.x);
             }
         }
         else
@@ -108,8 +110,23 @@ public class ZorrilloController : MonoBehaviour
         float randomY = Random.Range(-movementAreaSize, movementAreaSize);
         return movementAreaCenter + new Vector3(randomX, randomY, 0f);
     }
+
     private void LateUpdate()
     {
         animator.SetBool("Idle", !isMoving);
+    }
+
+    private void FlipSprite(float targetX)
+    {
+        // Invertir la dirección del sprite según la posición de destino
+        if ((targetX < transform.position.x && !isFacingRight) || (targetX > transform.position.x && isFacingRight))
+        {
+            isFacingRight = !isFacingRight;
+
+            // Invertir la escala del sprite en el eje X
+            Vector3 scale = transform.localScale;
+            scale.x *= -1;
+            transform.localScale = scale;
+        }
     }
 }

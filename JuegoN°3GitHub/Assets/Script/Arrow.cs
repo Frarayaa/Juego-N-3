@@ -19,6 +19,12 @@ public class Arrow : MonoBehaviour
     {
         // Mueve la flecha hacia adelante en la dirección establecida
         rb.velocity = direction.normalized * speed;
+
+        // Calcula el ángulo de rotación hacia la dirección de movimiento
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        // Aplica la rotación a la flecha
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
     public void SetDirection(Vector2 dir)
