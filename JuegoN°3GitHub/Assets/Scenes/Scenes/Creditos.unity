@@ -743,7 +743,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -9.6167, y: -5426}
+  m_AnchoredPosition: {x: -9.6167, y: -4959}
   m_SizeDelta: {x: 675.97, y: 275.45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &441852423
@@ -1078,7 +1078,7 @@ GameObject:
   - component: {fileID: 560049439}
   m_Layer: 5
   m_Name: Jugador
-  m_TagString: Jugador
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1796,7 +1796,7 @@ GameObject:
   - component: {fileID: 742541668}
   m_Layer: 5
   m_Name: Jugador (1)
-  m_TagString: Jugador
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3558,7 +3558,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2045705988
 RectTransform:
   m_ObjectHideFlags: 0

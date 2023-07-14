@@ -239,10 +239,10 @@ MonoBehaviour:
   enemyMode: 0
   chaseSpeed: 3
   patrolSpeed: 2
-  attackDistance: 1
+  attackDistance: 2
   damageAmount: 1
   chaseDuration: 5
-  damageCooldown: 1.8
+  damageCooldown: 3
   maxHealth: 3
   triangleVisual: {fileID: 425429344252143800}
   activeColor: {r: 1, g: 0, b: 0, a: 0.30588236}

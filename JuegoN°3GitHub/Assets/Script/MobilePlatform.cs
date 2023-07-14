@@ -48,7 +48,7 @@ public class MobilePlatform : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Jugador"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             jugadorTocado = true; // Marcar que se tocó al jugador
         }
@@ -56,7 +56,7 @@ public class MobilePlatform : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Jugador"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             collision.transform.SetParent(transform);
             shouldMove = true; // Activar la variable para que la plataforma comience a moverse
@@ -65,7 +65,7 @@ public class MobilePlatform : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Jugador"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             collision.transform.SetParent(null);
             shouldMove = false; // Desactivar la variable para detener el movimiento de la plataforma
