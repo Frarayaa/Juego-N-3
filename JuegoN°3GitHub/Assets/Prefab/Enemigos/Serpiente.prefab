@@ -104,7 +104,7 @@ MonoBehaviour:
   cantidadDePresionesNecesarias: 3
   teclaEscape: 102
   damageAmount: 1
-  maxHealth: 5
+  maxHealth: 2
 --- !u!60 &3334977437679615540
 PolygonCollider2D:
   m_ObjectHideFlags: 0

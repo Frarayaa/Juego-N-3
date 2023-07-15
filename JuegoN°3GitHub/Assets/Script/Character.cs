@@ -551,13 +551,13 @@ public class Character : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Tab))
             {
-                if (hasPicota && gameObject.CompareTag("WoodArea"))
-                {
-                    animator.SetBool("IsCutting", true);
-                }
-                else if (hasHacha && gameObject.CompareTag("StoneArea"))
+                if (hasPicota && isInStoneArea)
                 {
                     animator.SetBool("IsMining", true);
+                }
+                else if (hasHacha && isInWoodArea)
+                {
+                    animator.SetBool("IsCutting", true);
                 }
             }
 

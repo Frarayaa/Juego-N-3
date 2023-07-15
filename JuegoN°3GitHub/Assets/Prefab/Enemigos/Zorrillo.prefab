@@ -103,7 +103,7 @@ MonoBehaviour:
   movementSpeed: 2
   escapeSpeed: 3
   attackCooldown: 30
-  maxHealth: 2
+  maxHealth: 1
   damageAreaPrefab: {fileID: 1186375393090062464, guid: 78fa4aa1bfe56dd40a5887437cbeb882, type: 3}
   character: {fileID: 8060932721063485674, guid: 27b636e767de300478c78019a88e9560, type: 3}
   movementAreaSize: 3

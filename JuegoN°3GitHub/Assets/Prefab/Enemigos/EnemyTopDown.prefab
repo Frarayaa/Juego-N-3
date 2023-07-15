@@ -237,13 +237,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyMode: 0
-  chaseSpeed: 3
-  patrolSpeed: 2
+  chaseSpeed: 5.25
+  patrolSpeed: 3
   attackDistance: 2
   damageAmount: 1
   chaseDuration: 5
   damageCooldown: 3
-  maxHealth: 3
+  maxHealth: 1
   triangleVisual: {fileID: 425429344252143800}
   activeColor: {r: 1, g: 0, b: 0, a: 0.30588236}
   inactiveColor: {r: 1, g: 0.89164263, b: 0, a: 0.3764706}

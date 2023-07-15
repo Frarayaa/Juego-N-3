@@ -128,7 +128,7 @@ public class BossController : MonoBehaviour
         SpriteRenderer spriteRenderer = meleeArea.GetComponent<SpriteRenderer>();
 
         // Cambiar gradualmente el color de amarillo a rojo
-        StartCoroutine(ChangeDamageAreaColor(spriteRenderer, Color.yellow, Color.red, 1f));
+        StartCoroutine(ChangeDamageAreaColor(spriteRenderer, Color.gray, Color.gray, 1f));
     }
 
     private IEnumerator ChangeDamageAreaColor(SpriteRenderer spriteRenderer, Color startColor, Color endColor, float duration)

@@ -108,7 +108,7 @@ MonoBehaviour:
   damageAmount: 1
   chaseDuration: 5
   damageCooldown: 3
-  maxHealth: 3
+  maxHealth: 1
   triangleVisual: {fileID: 0}
   activeColor: {r: 1, g: 0, b: 0, a: 0.30588236}
   inactiveColor: {r: 1, g: 0.89164263, b: 0, a: 0.3764706}
