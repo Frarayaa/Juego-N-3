@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TrampaOso : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class TrampaOso : MonoBehaviour
     private Character jugadorController; // Referencia al controlador del jugador
     private Vector3 posicionTrampa; // Posición de la trampa
     private Animator animator;
+
+    public Text texto;
+    public Image imagen;
 
     private void Start()
     {
@@ -68,6 +72,8 @@ public class TrampaOso : MonoBehaviour
             isAttacking = true;
             jugadorController.enabled = false; // Desactivar el control del jugador
             jugadorController.transform.position = posicionTrampa; // Colocar al jugador en la posición de la trampa
+            texto.gameObject.SetActive(true);
+            imagen.gameObject.SetActive(true);
         }
     }
 
@@ -77,6 +83,8 @@ public class TrampaOso : MonoBehaviour
         tiempoTranscurrido = 0f;
         presionesRealizadas = 0;
         jugadorController.enabled = true; // Reactivar el control del jugador
+        texto.gameObject.SetActive(false);
+        imagen.gameObject.SetActive(false);
     }
     
     public void TakeDamage(int damage)
