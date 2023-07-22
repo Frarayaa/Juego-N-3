@@ -68,6 +68,17 @@ public class Character : MonoBehaviour
     public bool isMining = false;
     public bool isCutting = false;
 
+    public Image mouse;
+    public Image sword;
+    public Image bow;
+    public Image tab;
+    public Image picota;
+    public Image hacha;
+    public Image c;
+    public Image h;
+    public Image arrow;
+    public Image healing;
+
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -87,6 +98,45 @@ public class Character : MonoBehaviour
 
     private void Update()
     {
+        if (hasSword)
+        {
+            sword.gameObject.SetActive(true);
+            mouse.gameObject.SetActive(true);
+        }
+        if (hasBow)
+        {
+            bow.gameObject.SetActive(true);
+        }
+        if (hasHacha)
+        {
+            tab.gameObject.SetActive(true);
+            hacha.gameObject.SetActive(true);
+        }
+        if (hasPicota)
+        {
+            tab.gameObject.SetActive(true);
+            picota.gameObject.SetActive(true);
+        }
+        if (cantidadMadera > 0 && cantidadPiedra > 0)
+        {
+            c.gameObject.SetActive(true);
+            arrow.gameObject.SetActive(true);
+        }
+        else
+        {
+            c.gameObject.SetActive(false);
+            arrow.gameObject.SetActive(false);
+        }
+        if (healingItem > 0)
+        {
+            h.gameObject.SetActive(true);
+            healing.gameObject.SetActive(true);
+        }
+        else
+        { 
+            h.gameObject.SetActive(false);
+            healing.gameObject.SetActive(false);        
+        }
         // Update the attack cooldown timer
         if (attackTimer > 0f)
         {
