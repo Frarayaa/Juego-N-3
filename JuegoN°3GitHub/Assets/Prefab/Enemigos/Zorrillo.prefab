@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 2
-  escapeSpeed: 3
+  escapeSpeed: 4
   attackCooldown: 30
   maxHealth: 1
   damageAreaPrefab: {fileID: 1186375393090062464, guid: 78fa4aa1bfe56dd40a5887437cbeb882, type: 3}

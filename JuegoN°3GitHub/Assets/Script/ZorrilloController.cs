@@ -17,6 +17,7 @@ public class ZorrilloController : MonoBehaviour
     private Vector3 movementAreaCenter;
     private Vector3 targetPosition;
     private Animator animator;
+    private SpriteRenderer spriteRenderer;
     private bool isMoving = false;
     private bool isFacingRight = true; // Variable para controlar la dirección del sprite
 
@@ -31,6 +32,7 @@ public class ZorrilloController : MonoBehaviour
         // Establecer una posición de destino inicial
         targetPosition = GetRandomPositionInMovementArea();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -53,6 +55,7 @@ public class ZorrilloController : MonoBehaviour
             // Escapar en dirección opuesta al jugador
             Vector3 direction = (transform.position - character.transform.position).normalized;
             transform.Translate(direction * escapeSpeed * Time.deltaTime);
+            spriteRenderer.flipX = true;
         }
 
         // Verificar si debe atacar
@@ -68,7 +71,7 @@ public class ZorrilloController : MonoBehaviour
                 CreateDamageArea();
                 attackTimer = attackCooldown;
                 isEscaping = true;
-                Invoke("Disappear", 2f); // Llamar a la función "Disappear" después de 2 segundos
+                Invoke("Disappear", 7f); // Llamar a la función "Disappear" después de 2 segundos
             }
         }
     }

@@ -10,7 +10,8 @@ public class TurretEnemy : MonoBehaviour
     public LayerMask playerLayer;
     public float detectionRadius = 10f;
     public float attackRadius = 5f;
-
+    public GameObject exclamacion;
+    
     private int health;
     private float attackTimer = 0f;
     private GameObject player;
@@ -36,11 +37,22 @@ public class TurretEnemy : MonoBehaviour
         {
             Attack();
             IsShooting = true;
+            
             attackTimer = attackCooldown;
         }
         else
         {
             IsShooting = false; // Set isShooting to false if the player is not within the attack radius
+            
+        }
+
+        if (DetectPlayer(attackRadius))
+        {
+            exclamacion.SetActive(true);
+        }
+        else
+        {
+            exclamacion.SetActive(false);
         }
 
     }
