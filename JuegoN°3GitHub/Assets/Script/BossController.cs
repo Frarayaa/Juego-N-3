@@ -9,9 +9,9 @@ public class BossController : MonoBehaviour
     public float chargeAttackDuration = 3f;
     public float idleDuration = 2f;
     public float chaseLimit = 10f;
-    public float meleeAttackCooldown = 2f; // Tiempo de enfriamiento entre ataques cuerpo a cuerpo
-    private float meleeAttackTimer; // Temporizador para el tiempo transcurrido desde el último ataque cuerpo a cuerpo
-    public float chargeAttackCooldown = 2f; // Tiempo de enfriamiento entre ataques cuerpo a cuerpo
+    public float meleeAttackCooldown = 2f;
+    private float meleeAttackTimer;
+    public float chargeAttackCooldown = 2f;
     private float chargeAttackTimer;
     public int normalAttackDamage = 2;
     public int chargedAttackDamage = 4;
@@ -31,6 +31,8 @@ public class BossController : MonoBehaviour
     private bool isCharging = false;
     public Final fin;
 
+    private bool isDead = false;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -41,6 +43,11 @@ public class BossController : MonoBehaviour
 
     private void Update()
     {
+        if (isDead)
+        {
+            return; // Si el jefe está muerto, detener la lógica de actualización.
+        }
+
         if (!isChargingAttack && !isIdle)
         {
             float distanceToPlayer = Vector3.Distance(transform.position, player.position);
@@ -65,7 +72,7 @@ public class BossController : MonoBehaviour
                 {
                     MeleeAttack();
                     isAttacking = true;
-                    meleeAttackTimer = meleeAttackCooldown; // Reinicia el temporizador de enfriamiento
+                    meleeAttackTimer = meleeAttackCooldown;
                 }
                 else
                 {
@@ -86,9 +93,8 @@ public class BossController : MonoBehaviour
                     isCharging = true;
                     chargeAttackTimer = chargeAttackCooldown;
                 }
-                
             }
-            
+
             if (chargeAttackTimer > 0f)
             {
                 chargeAttackTimer -= Time.deltaTime;
@@ -195,6 +201,16 @@ public class BossController : MonoBehaviour
     private void Die()
     {
         Debug.Log("El jefe ha muerto");
+        isDead = true;
+        Debug.Log("IsDead set to true.");
+        StartCoroutine(DieWithDelay(0.8f)); // Espera 3 segundos antes de desactivar el objeto
+    }
+
+    private IEnumerator DieWithDelay(float delay)
+    {
+        // Desencadenar la animación de muerte
+        animator.SetBool("IsDead", true);
+        yield return new WaitForSeconds(delay); // Esperar el tiempo de duración de la animación de muerte
         gameObject.SetActive(false);
         fin.destruir = true;
     }
@@ -204,11 +220,13 @@ public class BossController : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, chaseLimit);
     }
+
     private void LateUpdate()
     {
         animator.SetBool("Idle", !isChasing);
         animator.SetBool("IsAttacking", isAttacking);
         animator.SetBool("IsCharging", isCharging);
         animator.SetBool("IsChasing", isChasing);
+        animator.SetBool("IsDead", isDead); // Asegurarse de que el Animator sepa cuando el jefe está muerto.
     }
 }

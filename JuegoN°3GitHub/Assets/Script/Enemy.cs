@@ -35,6 +35,7 @@ public class Enemy : MonoBehaviour
     private Vector3 patrolTargetPosition;
     private Vector2 initialScale;
     private bool isMoving = false;
+    private bool isAttacking = false;
 
     private PolygonCollider2D detectionCollider;
 
@@ -106,6 +107,14 @@ public class Enemy : MonoBehaviour
                 StopChase();
             }
         }
+
+        UpdateAnimations();
+    }
+
+    private void UpdateAnimations()
+    {
+        animator.SetBool("IsChasing", isChasing);
+        animator.SetBool("IsAttacking", isAttacking);
     }
 
     private void StartChase()
@@ -130,6 +139,8 @@ public class Enemy : MonoBehaviour
         transform.position += direction * chaseSpeed * Time.deltaTime;
         FlipSprite(direction.x);
         isMoving = true;
+        isChasing = true;
+        isAttacking = false; // Ensure we are not attacking while chasing
     }
 
     private void PatrolTopDown()
@@ -151,6 +162,8 @@ public class Enemy : MonoBehaviour
         transform.position += direction * patrolSpeed * Time.deltaTime;
         FlipSprite(direction.x);
         isMoving = true;
+        isChasing = false; // Ensure we are not chasing while patrolling
+        isAttacking = false; // Ensure we are not attacking while patrolling
     }
 
     private IEnumerator StartPatrolTopDown()
@@ -183,6 +196,8 @@ public class Enemy : MonoBehaviour
         transform.position += direction * patrolSpeed * Time.deltaTime;
         FlipSprite(direction.x);
         isMoving = true;
+        isChasing = false; // Ensure we are not chasing while patrolling
+        isAttacking = false; // Ensure we are not attacking while patrolling
     }
 
     private IEnumerator StartPatrolSideScroll()
@@ -223,6 +238,8 @@ public class Enemy : MonoBehaviour
             {
                 character.TakeDamage(damageAmount);
                 damageTimer = damageCooldown;
+                isAttacking = true;
+                isChasing = false; // Ensure we are not chasing while attacking
             }
         }
     }

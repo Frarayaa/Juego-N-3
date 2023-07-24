@@ -122,12 +122,12 @@ TextureImporter:
       name: Lobo_0
       rect:
         serializedVersion: 2
-        x: 143
+        x: 142
         y: 316
-        width: 63
-        height: 31
+        width: 65
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -146,9 +146,9 @@ TextureImporter:
         x: 207
         y: 316
         width: 64
-        height: 37
+        height: 38
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -165,11 +165,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 271
-        y: 252
+        y: 316
         width: 64
-        height: 105
+        height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -185,12 +185,12 @@ TextureImporter:
       name: Lobo_3
       rect:
         serializedVersion: 2
-        x: 338
+        x: 335
         y: 316
-        width: 61
-        height: 41
+        width: 64
+        height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -206,12 +206,12 @@ TextureImporter:
       name: Lobo_4
       rect:
         serializedVersion: 2
-        x: 143
+        x: 142
         y: 284
-        width: 63
+        width: 65
         height: 31
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -232,7 +232,7 @@ TextureImporter:
         width: 64
         height: 31
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -248,12 +248,12 @@ TextureImporter:
       name: Lobo_6
       rect:
         serializedVersion: 2
-        x: 335
-        y: 252
+        x: 271
+        y: 284
         width: 64
-        height: 63
+        height: 31
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -269,12 +269,12 @@ TextureImporter:
       name: Lobo_7
       rect:
         serializedVersion: 2
-        x: 399
+        x: 335
         y: 284
-        width: 63
-        height: 32
+        width: 64
+        height: 31
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -290,12 +290,12 @@ TextureImporter:
       name: Lobo_8
       rect:
         serializedVersion: 2
-        x: 143
-        y: 252
-        width: 63
-        height: 30
+        x: 399
+        y: 284
+        width: 64
+        height: 33
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -311,12 +311,12 @@ TextureImporter:
       name: Lobo_9
       rect:
         serializedVersion: 2
-        x: 208
+        x: 142
         y: 252
-        width: 60
-        height: 29
+        width: 65
+        height: 31
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -332,12 +332,12 @@ TextureImporter:
       name: Lobo_10
       rect:
         serializedVersion: 2
-        x: 400
+        x: 207
         y: 252
-        width: 63
-        height: 32
+        width: 64
+        height: 31
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -353,12 +353,12 @@ TextureImporter:
       name: Lobo_11
       rect:
         serializedVersion: 2
-        x: 143
-        y: 220
-        width: 63
+        x: 271
+        y: 252
+        width: 64
         height: 31
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -374,12 +374,12 @@ TextureImporter:
       name: Lobo_12
       rect:
         serializedVersion: 2
-        x: 210
-        y: 220
-        width: 60
+        x: 335
+        y: 252
+        width: 64
         height: 31
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -395,12 +395,12 @@ TextureImporter:
       name: Lobo_13
       rect:
         serializedVersion: 2
-        x: 271
-        y: 220
-        width: 128
-        height: 32
+        x: 399
+        y: 252
+        width: 64
+        height: 31
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -416,12 +416,12 @@ TextureImporter:
       name: Lobo_14
       rect:
         serializedVersion: 2
-        x: 400
+        x: 142
         y: 220
-        width: 63
+        width: 65
         height: 31
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -429,6 +429,90 @@ TextureImporter:
       bones: []
       spriteID: 60fa9634f2865264ea41e7e6eb603da7
       internalID: -420384039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_15
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 220
+        width: 64
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d1088d1143008c4485d13782c2e5887
+      internalID: 717894723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_16
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 220
+        width: 64
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1dc09ba3924ba242b41bfd36288847d
+      internalID: 1713383862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_17
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 220
+        width: 64
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7d31926e0d681944a93dcc4f9c8e49e
+      internalID: -1668241129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_18
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 220
+        width: 64
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1e7a6cdaac622540808ea3451671b38
+      internalID: -1628430035
       vertices: []
       indices: 
       edges: []
@@ -451,6 +535,10 @@ TextureImporter:
       Lobo_12: -1269408443
       Lobo_13: -1569865123
       Lobo_14: -420384039
+      Lobo_15: 717894723
+      Lobo_16: 1713383862
+      Lobo_17: -1668241129
+      Lobo_18: -1628430035
       Lobo_2: -1499134975
       Lobo_3: 819978153
       Lobo_4: -749483424
