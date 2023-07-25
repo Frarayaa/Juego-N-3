@@ -164,7 +164,7 @@ SpriteRenderer:
   m_SortingOrder: 10
   m_Sprite: {fileID: 1432863925, guid: cb8ae7fc8420b764eabcd1e02c31cc25, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -187,7 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 1
   damageAmount: 1
-  attackCooldown: 2
+  attackCooldown: 1.5
   firePoint: {fileID: 7258521238312489160}
   bulletPrefab: {fileID: 5866268518405852604, guid: fc9dc0c9209421d40a145b0fdf2a3681, type: 3}
   playerLayer:

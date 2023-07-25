@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2db1e0fb54068d948aa9e4aad61c4901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAreaColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
+  damageAreaColor: {r: 1, g: 0, b: 0, a: 0.72156864}
   destroyDelay: 1
   damageAreaSize: {x: 10, y: 10, z: 0.2}
   damage: 3

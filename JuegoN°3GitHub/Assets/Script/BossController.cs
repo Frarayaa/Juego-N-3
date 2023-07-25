@@ -118,7 +118,7 @@ public class BossController : MonoBehaviour
         Vector2 areaSize = meleeAttackArea.localScale;
         Vector2 areaPosition = meleeAttackArea.position;
 
-        Collider2D[] colliders = Physics2D.OverlapAreaAll(areaPosition - areaSize / 2f, areaPosition + areaSize / 2f);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(meleeAttackArea.position, 3f);
 
         foreach (Collider2D collider in colliders)
         {
@@ -134,7 +134,7 @@ public class BossController : MonoBehaviour
         SpriteRenderer spriteRenderer = meleeArea.GetComponent<SpriteRenderer>();
 
         // Cambiar gradualmente el color de amarillo a rojo
-        StartCoroutine(ChangeDamageAreaColor(spriteRenderer, Color.gray, Color.gray, 1f));
+        StartCoroutine(ChangeDamageAreaColor(spriteRenderer, Color.clear, Color.clear, 1f));
     }
 
     private IEnumerator ChangeDamageAreaColor(SpriteRenderer spriteRenderer, Color startColor, Color endColor, float duration)

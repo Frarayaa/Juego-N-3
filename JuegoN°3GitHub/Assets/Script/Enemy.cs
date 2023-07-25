@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class Enemy : MonoBehaviour
 {
@@ -49,6 +50,10 @@ public class Enemy : MonoBehaviour
     public float patrolAreaCenterXSideScroll = 0f;
     public float patrolAreaCenterYSideScroll = 0f;
 
+    public float attackCooldown = 2f;
+    private float attackCooldownTimer = 0f;
+
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -68,29 +73,40 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         bool isPlayerVisible = detectionCollider.IsTouchingLayers(playerLayer);
-
-        if (isPlayerVisible && damageTimer <= 0f)
+        // Restar tiempo del enfriamiento después de atacar
+        if (attackCooldownTimer > 0f)
         {
-            ChasePlayer();
-            triangleVisual.GetComponent<SpriteRenderer>().color = activeColor;
+            attackCooldownTimer -= Time.deltaTime;
         }
-        else
-        {
-            triangleVisual.GetComponent<SpriteRenderer>().color = inactiveColor;
 
-            if (enemyMode == EnemyMode.TopDown)
+
+        if (attackCooldownTimer <= 0f)
+        {
+            if (isPlayerVisible && damageTimer <= 0f)
             {
-                PatrolTopDown();
+                ChasePlayer();
+                triangleVisual.GetComponent<SpriteRenderer>().color = activeColor;
             }
-            else if (enemyMode == EnemyMode.SideScroll)
+            else
             {
-                PatrolSideScroll();
+                triangleVisual.GetComponent<SpriteRenderer>().color = inactiveColor;
+
+                if (enemyMode == EnemyMode.TopDown)
+                {
+                    PatrolTopDown();
+                }
+                else if (enemyMode == EnemyMode.SideScroll)
+                {
+                    PatrolSideScroll();
+                }
             }
         }
+
 
         if (Vector2.Distance(transform.position, player.position) <= attackDistance)
         {
             AttackPlayer();
+            isAttacking = false;
         }
 
         if (damageTimer > 0f)
@@ -140,7 +156,6 @@ public class Enemy : MonoBehaviour
         FlipSprite(direction.x);
         isMoving = true;
         isChasing = true;
-        isAttacking = false; // Ensure we are not attacking while chasing
     }
 
     private void PatrolTopDown()
@@ -239,10 +254,20 @@ public class Enemy : MonoBehaviour
                 character.TakeDamage(damageAmount);
                 damageTimer = damageCooldown;
                 isAttacking = true;
+                Debug.Log(isAttacking);
+                UpdateAnimations();
                 isChasing = false; // Ensure we are not chasing while attacking
+
+                // Iniciar el tiempo de espera después del ataque
+                attackCooldownTimer = attackCooldown;
             }
         }
+        else
+        {
+            isAttacking = false;
+        }
     }
+
 
     public void TakeDamage(int damage)
     {
